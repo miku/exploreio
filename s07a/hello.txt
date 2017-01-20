@@ -1,0 +1,5 @@
+Reflection is never clear.
+If ⊥ is an atom for which no definitional clause in given, then ⊥⊢ C is
+derivable for any C—we just have to apply definitional reflection with the
+empty set (n = 0) of premisses. "⇒" denotes a structural implication for which
+we assume that the rules ...

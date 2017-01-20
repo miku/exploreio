@@ -1,0 +1,4 @@
+Don't communicate by sharing memory, share memory by communicating.
+Concurrency is not parallelism.
+Channels orchestrate; mutexes serialize.
+The bigger the interface, the weaker the abstraction.
