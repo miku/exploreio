@@ -101,13 +101,13 @@ Workshop roadmap
 Workshop roadmap
 ================
 
-All code is it at: https://github.com/miku/exploreio
+All code is at: https://github.com/miku/exploreio
 
 Clone it or go get it.
 
 * s00, s01, s02, ... s30, self contained examples with TODO
 * try to resolve the TODO
-* then: short recap, then: next
+* short recap, next, ...
 
 ----
 
@@ -115,6 +115,13 @@ Workshop roadmap
 ================
 
 * Everybody has the code?
+
+```shell
+$ git clone https://github.com/miku/exploreio.git
+$ cd exploreio
+$ go run check/main.go
+Hello Gopher!
+```
 
 ----
 
@@ -159,8 +166,9 @@ type Reader interface {
 }
 ```
 
-* What is it? Something that when given some space ([]byte) is able to populate
-it and eventually signal an end (io.EOF). Must not retain p.
+What is it? Something that when given some space - []byte -
+is able to populate it and eventually signal
+an end (io.EOF). Must not retain p.
 
 ----
 
@@ -175,7 +183,8 @@ type Writer interface {
 }
 ```
 
-* What is it? Something ([]byte) it is able to write it. Must not modify or retain p.
+What is it? Something that is able to write on your behalf.
+Must not modify or retain p.
 
 ----
 
