@@ -14,7 +14,7 @@ import (
 	"os"
 )
 
-var zero = zeroReader(0)
+var devZero = zeroReader(0)
 
 type zeroReader int
 
@@ -23,7 +23,7 @@ func (r zeroReader) Read(p []byte) (n int, err error) {
 }
 
 func main() {
-	r := io.LimitReader(zero, 64)
+	r := io.LimitReader(devZero, 64)
 	if _, err := io.Copy(os.Stdout, r); err != nil {
 		log.Fatal(err)
 	}
