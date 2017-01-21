@@ -1,8 +1,9 @@
 // S30: A small buffer.
 //
 // $ go run main.go
-// Hello
-// Golab 2017
+//
+// ░♡░┳┣I░A░Ⓝ░К▒❀▒УOЦ░♡░ for your attention!
+//
 package main
 
 import (
