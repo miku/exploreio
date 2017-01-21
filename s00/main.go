@@ -18,6 +18,7 @@ import (
 	"os"
 )
 
+// TODO: Change a single character so the complete file is read and printed.
 func main() {
 	file, err := os.Open("hello.txt")
 	if err != nil {
@@ -34,5 +35,3 @@ func main() {
 	fmt.Printf("%d bytes read: %s\n", n, string(b))
 	// Output: 11 bytes read: Concurrency
 }
-
-// TODO: Change a single character so the complete file is read and printed.

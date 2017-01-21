@@ -1,4 +1,4 @@
-// S27: A reader that times out.
+// S27b: A reader that times out.
 
 //     $ go run main.go
 //     Hello World!

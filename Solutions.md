@@ -323,8 +323,8 @@ func (w *UpperWriter) Write(p []byte) (n int, err error) {
 }
 ```
 
-S24
----
+S24a
+----
 
 ```go
 // TODO: implement a reader that counts the total number of bytes read. 9 lines.
@@ -344,6 +344,11 @@ func (r *CountingReader) Count() uint64 {
 }
 ```
 
+S24b
+----
+
+All done.
+
 
 S25
 ---
@@ -355,8 +360,16 @@ S26
 
 All done.
 
-S27
 ---
+
+S27a
+----
+
+All done.
+
+
+S27b
+----
 
 ```go
 // TODO: Implement a reader that times out after a certain a given timeout. 19 lines.

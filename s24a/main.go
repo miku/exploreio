@@ -1,4 +1,4 @@
-// S24: A counting reader, count the number of bytes read in total.
+// S24a: A counting reader, count the number of bytes read in total.
 //
 //     $ cat main.go | go run main.go
 //     n (io.Copy) = 550, n (CountingReader) = 550
