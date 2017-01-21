@@ -276,10 +276,12 @@ From: http://yarchive.net/comp/linux/everything_is_file.html
 Intro: Filters
 --------------
 
-> The Pipes and Filters architectural pattern provides a structure for systems
-that process a stream of data. Each processing step is encapsulated in a filter
-component. Data [are] passed through pipes between adjacent filters.
-Recombining filters allows you to build families of related filters.
+> The Pipes and Filters architectural pattern provides
+a structure for systems that process a stream of data.
+Each processing step is encapsulated in a filter
+component. Data [are] passed through pipes between
+adjacent filters. Recombining filters allows you to
+build families of related filters.
 
 From: https://john.cs.olemiss.edu/~hcc/csci581oo/notes/pipes.html
 
@@ -288,11 +290,11 @@ From: https://john.cs.olemiss.edu/~hcc/csci581oo/notes/pipes.html
 Intro: Filters
 --------------
 
-> The filters are the processing units of the pipeline. A filter may enrich,
-refine, or transform its input data [Buschmann].
+> The filters are the processing units of the pipeline.
+A filter may enrich, refine, or transform its input data [Buschmann].
 
-* It may **enrich** the data by computing new information from the input data
-and adding it to the output data stream.
+* It may **enrich** the data by computing new information from
+the input data and adding it to the output data stream.
 
 ----
 
@@ -300,13 +302,15 @@ Intro: Filters
 --------------
 
 
-* It may **refine** the data by concentrating or extracting information from the
-input data stream and passing only that information to the output stream.
+* It may **refine** the data by concentrating or extracting
+information from the input data stream and passing only that
+information to the output stream.
 
-* It may **transform** the input data to a new form before passing it to the output
-stream.
+* It may **transform** the input data to a new form before
+passing it to the output stream.
 
-* It may, of course, do some **combination** of enrichment, refinement, and transformation. 
+* It may, of course, do some **combination** of enrichment,
+refinement, and transformation. 
 
 ----
 
