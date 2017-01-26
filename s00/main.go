@@ -27,7 +27,7 @@ func main() {
 
 	var r io.Reader = file
 
-	b := make([]byte, 11)
+	b := make([]byte, 1024)
 	n, err := r.Read(b)
 	if err != nil {
 		log.Fatal(err)

@@ -15,6 +15,10 @@ import (
 type Empty struct{}
 
 // TODO: Implement the Read interface, always return EOF. 3 lines.
+func (r *Empty) Read(p []byte) (n int, err error) {
+	return 0, io.EOF
+}
+
 // ...
 // ...
 // ...

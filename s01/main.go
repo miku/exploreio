@@ -1,4 +1,4 @@
-// S02: Get bytes from a reader.
+// S01: Get bytes from a reader.
 //
 // Sometimes you want to consume a reader all at once.
 //
@@ -8,7 +8,7 @@ package main
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -21,14 +21,9 @@ func main() {
 
 	// TODO: We don't need to loop manually, there is a helper function for that.
 	// TODO: Replace the next 10 lines with 5 that do the same.
-	var contents []byte
-	for {
-		b := make([]byte, 8)
-		_, err := file.Read(b)
-		if err == io.EOF {
-			break
-		}
-		contents = append(contents, b...)
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
 	}
-	fmt.Println(string(contents))
+	fmt.Println(string(b))
 }

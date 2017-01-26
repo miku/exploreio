@@ -18,8 +18,10 @@
 package main
 
 import (
+	"io"
 	"log"
 	"net"
+	"os"
 )
 
 func main() {
@@ -29,4 +31,6 @@ func main() {
 	}
 	defer conn.Close()
 	// TODO: Send a GET request, read the reponse and print to stdout. 6 lines.
+	io.WriteString(conn, "GET / HTTP/1.0\r\n\r\n")
+	io.Copy(os.Stdout, conn)
 }

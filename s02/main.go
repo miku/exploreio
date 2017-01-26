@@ -7,6 +7,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"os"
 )
@@ -19,4 +20,7 @@ func main() {
 
 	// TODO: Write output to Stdout, without using a byte slice (3 lines, including error handling).
 	// ...
+	if _, err := io.Copy(os.Stdout, file); err != nil {
+		log.Fatal(err)
+	}
 }

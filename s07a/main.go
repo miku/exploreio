@@ -4,6 +4,12 @@
 //    Reflection is never clear.
 package main
 
+import (
+	"io"
+	"os"
+)
+
 func main() {
 	// TODO: Only read the first 27 bytes of stdin. 3 (or 6) lines with error handling.
+	io.Copy(os.Stdout, io.LimitReader(os.Stdin, 27))
 }

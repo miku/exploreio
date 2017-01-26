@@ -8,12 +8,14 @@
 //    $ cat gopherbw.png | go run main.go > gopherbw.jpg
 //    $ ls -lah gopherbw.jpg
 //    ...
-//    ... 542541 Jan 20 17:08 gopherbw.jpg
+//    ... ...... Jan 20 17:08 gopherbw.jpg
 //
 package main
 
 import (
+	"image"
 	_ "image/gif" // register gif decoder
+	"image/jpeg"
 	_ "image/png" // register png decoder
 	"io"
 	"log"
@@ -21,9 +23,14 @@ import (
 )
 
 // toJPG converts gif or PNG to JPG.
-func toJPG(in io.Reader, out io.Writer) error {
+func toJPG(r io.Reader, w io.Writer) error {
 	// TODO: Read the image, encode the image. 5 lines with error handling.
-	return nil
+	img, _, err := image.Decode(r)
+	if err != nil {
+		return err
+	}
+	return jpeg.Encode(w, img, nil)
+
 }
 
 func main() {

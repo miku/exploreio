@@ -9,6 +9,7 @@
 package main
 
 import (
+	"io"
 	"os"
 	"text/tabwriter"
 )
@@ -20,6 +21,7 @@ func main() {
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight|tabwriter.Debug)
 
 	// TODO: Read tabulated data from standard in and write it to the tabwriter. 3 lines (incl. err).
+	io.Copy(w, os.Stdin)
 	// ...
 	// ...
 	// ...

@@ -1,4 +1,4 @@
-// S22: A reader that discards everything that is written to it.
+// S22: A writer that discards everything that is written to it.
 //
 // $ echo "Hello" | go run main.go
 package main
@@ -11,6 +11,12 @@ import (
 
 // TODO: Implement Discard, that throws away everything that is written. 4 lines.
 // ...
+type Discard struct{}
+
+// TODO: 0 or len(p)
+func (w *Discard) Write(p []byte) (n int, err error) {
+	return 0, nil
+}
 
 // ...
 // ...

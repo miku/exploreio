@@ -6,7 +6,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
+	"os"
 	"time"
 )
 
@@ -18,5 +21,10 @@ type record struct {
 
 func main() {
 	// TODO: Unmarshal from Stdin into a record struct. 4 lines with error handling.
-	fmt.Printf("It's around %s now and we are at wonderful %s in %s! @golab_conf\n", rec.Date, rec.Name, rec.Location)
+	var rec record
+	if err := json.NewDecoder(os.Stdin).Decode(&rec); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("It's around %s now and we are at wonderful %s in %s! @golab_conf\n",
+		rec.Date, rec.Name, rec.Location)
 }
