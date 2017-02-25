@@ -4,22 +4,41 @@
 // memory storage used to temporarily store data while it is being moved from one
 // place to another. /wiki/Data_buffer
 //
+// OUTPUT:
+//
 //     $ go run main.go
-//      31
-//      32
-//      33
+//     61
+//     62
+//     63
+//     2e
+//     78
+//     79
+//     7a
 
 package main
 
 import (
 	"bytes"
+	"fmt"
+	"io"
 	"log"
+	"os"
 )
 
 func main() {
 	var buf bytes.Buffer
-	if _, err := buf.WriteString("123"); err != nil {
+	if _, err := buf.WriteString("abc.xyz"); err != nil {
 		log.Fatal(err)
 	}
-	// TODO: Read one byte at a time from buffer and print the hex value on stdout. 10 lines (incl. error handling).
+	// TODO: Read one byte at a time from the buffer and print the hex value on stdout (10 lines).
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
 }

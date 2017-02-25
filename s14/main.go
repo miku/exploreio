@@ -1,5 +1,7 @@
 // S14: Read into variables.
 //
+// OUTPUT:
+//
 //     $ echo 1 1 1 | go run main.go
 //     1 (int), 1.0000 (float64), 1 (string)
 //
@@ -20,9 +22,9 @@ func main() {
 		f float64
 		s string
 	)
-	// TODO: Read an int, a float and a string from stdin. 3 lines.
-	if _, err := fmt.Fscan(os.Stdin, &i, &f, &s); err != nil {
-		log.Fatal(err)
-	}
+	// TODO: Read an int, a float and a string from stdin (3 lines)
+	// ...
+	// ...
+	// ...
 	fmt.Printf("%d (%T), %0.4f (%T), %s (%T)\n", i, i, f, f, s, s)
 }

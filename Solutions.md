@@ -285,7 +285,7 @@ the size of the byte slice.
 S09
 ---
 
-We could apply any of the limiting technique. Here is an example with
+We could apply any of the limiting techniques. Here is an example with
 [io.CopyN](https://golang.org/pkg/io/#CopyN):
 
 ```go
@@ -302,8 +302,12 @@ generator](http://unix.stackexchange.com/questions/230673/how-to-generate-a-rand
 S10
 ---
 
+Another example for [io.Copy](https://golang.org/pkg/io/#Copy). Here, the
+destination is a writer, that prettifies tabular data.
+
+
 ```go
-	// TODO: Read tabulated data from standard in and write it to the tabwriter. 3 lines (incl. err).
+	// TODO: Read tabulated data from standard in and write it to the tabwriter (3 lines).
 	if _, err := io.Copy(w, os.Stdin); err != nil {
 		log.Fatal(err)
 	}
@@ -317,8 +321,10 @@ All done.
 S12
 ---
 
+You can combine any number of readers with [io.MultiReader](https://golang.org/pkg/io/#MultiReader).
+
 ```go
-	// TODO: Read from four readers and write to stdout. 4 lines (incl. 1 long and err handling).
+	// TODO: Read from these four readers and write to standard output (4 lines).
 	rs := []io.Reader{
 		strings.NewReader("Hello\n"),
 		strings.NewReader("Gopher\n"),
@@ -334,8 +340,12 @@ S12
 S13
 ---
 
+The counterpart to io.MultiReader is
+[io.MultiWriter](https://golang.org/pkg/io/#MultiWriter). It is similar to the
+Unix [tee](https://en.wikipedia.org/wiki/Tee_(command)) command.
+
 ```go
-	// TODO: Write to both, the file and stdout. 4 lines (incl. error handling).
+	// TODO: Write to both, the file and standard output (4 lines).
 	w := io.MultiWriter(file, os.Stdout)
 	if _, err := fmt.Fprintf(w, "SPQR\n"); err != nil {
 		log.Fatal(err)
@@ -345,8 +355,12 @@ S13
 S14
 ---
 
+[Fscan](https://golang.org/pkg/fmt/#Fscan) belongs to a family of functions,
+which can be considered the opposite of formatted output: They scan formatted
+text to yield values.
+
 ```go
-	// TODO: Read an int, a float and a string from stdin. 3 lines.
+	// TODO: Read an int, a float and a string from standard input (3 lines).
 	if _, err := fmt.Fscan(os.Stdin, &i, &f, &s); err != nil {
 		log.Fatal(err)
 	}
@@ -355,8 +369,10 @@ S14
 S15
 ---
 
+One of the most versatile types for IO are buffers [](bytes.Buffer)
+
 ```go
-	// TODO: Read one byte at a time from buffer and print the hex value on stdout. 10 lines (incl. error handling).
+	// TODO: Read one byte at a time from the buffer and print the hex value on stdout (10 lines).
 	for {
 		b, err := buf.ReadByte()
 		if err == io.EOF {
@@ -365,7 +381,7 @@ S15
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Fprintf(os.Stdout, "% x\n", b)
+		fmt.Fprintf(os.Stdout, "%x\n", b)
 	}
 ```
 

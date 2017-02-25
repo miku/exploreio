@@ -22,8 +22,8 @@ func main() {
 	r := rand.New(rand.NewSource(123))
 
 	// TODO: Copy 12 byte from random source into the encoder (3 lines).
-	if _, err := io.CopyN(encoder, r, 12); err != nil {
-		log.Fatal(err)
-	}
+	// ...
+	// ...
+	// ...
 	fmt.Println()
 }

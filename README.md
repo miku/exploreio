@@ -153,8 +153,8 @@ If you are using this material for an own course, maybe you like a setup like th
 * Have a separate screen (tablet or other device) open with the solutions manual,
 so you can jump in with a hint or solution.
 
-List of exercise themes
------------------------
+List of exercises
+-----------------
 
 * S00: A file is a reader.
 * S01: Get bytes from a reader.
@@ -167,3 +167,7 @@ List of exercise themes
 * S07b: Read sections from a reader.
 * S08: Strings can be readers, io.ReadFull.
 * S09: Random reader and Base64 encoder.
+* S10: Prettify tabular data.
+* S11: Read a file, line by line.
+* S12: Read from multiple readers in turn.
+* S13: Write to more than one writer at once.

@@ -1,5 +1,7 @@
 // S12: Read from multiple readers in turn.
 //
+// OUTPUT:
+//
 //     $ go run main.go
 //     Hello
 //     Gopher
@@ -9,19 +11,21 @@ package main
 
 import (
 	"io"
+	"log"
 	"os"
 	"strings"
 )
 
 func main() {
-	// TODO: Read from these four readers and write to stdout. 4 lines (incl. 1 long and err handling).
+	// TODO: Read from these four readers and write to standard output (4 lines).
 	rs := []io.Reader{
 		strings.NewReader("Hello\n"),
 		strings.NewReader("Gopher\n"),
 		strings.NewReader("World\n"),
 		strings.NewReader("!\n"),
 	}
-	r := io.MultiReader(rs...)
-	io.Copy(os.Stdout, r)
-
+	// ...
+	// ...
+	// ...
+	// ...
 }

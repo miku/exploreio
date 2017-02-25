@@ -1,6 +1,8 @@
 // S11: Read a file, line by line.
 //
-// Like `cat -n` command.
+// Like `cat -n`.
+//
+// OUTPUT:
 //
 //     $ cat hello.txt | go run main.go
 //         1  Don't communicate by sharing memory, share memory by communicating.

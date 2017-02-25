@@ -1,9 +1,11 @@
 // S13: Write to more than one writer at once.
 //
-//     $ rm -f hello.txt && go run main.go
+// OUTPUT:
+//
+//     $ rm -f output.txt && go run main.go
 //     SPQR
 //
-//     $ cat hello.txt
+//     $ cat output.txt
 //     SPQR
 package main
 
@@ -13,12 +15,12 @@ import (
 )
 
 func main() {
-	file, err := os.Create("hello.txt")
+	file, err := os.Create("output.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
-	// TODO: Write to both, the file and stdout. 4 lines (incl. error handling).
+	// TODO: Write to both, the file and standard output (4 lines).
 	// ...
 	// ...
 	// ...
