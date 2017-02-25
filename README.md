@@ -6,10 +6,9 @@ Explore IO with Golang, workshop at [Golab](http://golab.io) 2017.
 Prerequisites
 -------------
 
-To keep the amount of preparation you need to a minimum, all you'll need is a
-working [Go installation](https://golang.org/doc/install). All programs in the
-exercises will be mostly self-contained (in the spirit of a
-[SSCCE](http://sscce.org/)).
+To keep the amount of preparation at a minimum, all you'll need is a working
+[Go installation](https://golang.org/doc/install). Exercise programs will be
+mostly self-contained (in the spirit of a [SSCCE](http://sscce.org/)).
 
 Here is all you need to do to get started. Clone this repository:
 
@@ -127,3 +126,21 @@ $ cat hello.json | go run main.go
 
 If the result is the same you solved the exercise. If the output is off, try
 reviewing your code.
+
+Solutions
+---------
+
+Solutions to all exercises can be found in
+[Solutions.md](https://github.com/miku/exploreio/blob/master/Solutions.md).
+Each exercise should have a solution and potentially a short explanation that
+comes with it.
+
+To the instructor
+-----------------
+
+If you are using this material for an own course, maybe you like a setup like this:
+
+* Have your laptop open as you show the exercises on a screen. Explain what is required and let people work on the TODOs.
+* Have a separate screen (tablet of other device) open with the solutions manual,
+so you can jump in with a hint or solution.
+
