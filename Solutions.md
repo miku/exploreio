@@ -34,11 +34,14 @@ While [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) is useful, it is
 sometimes overused. Why is that? Often one wants to read something, process it
 and then write it somewhere. Imagine a HTTP request body, that we want to read,
 then preprocess and then maybe write to file.
-[io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) will consume the *whole
+[io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) would consume the *whole
 data at once*. But for example in the case of a large file upload, there is
 seldom a reason, why we would need to load the whole file into memory before
-writing it to disk. There are other ways to accomplish this, which are both
+writing it to disk. There are other ways to solve this problem, which are both
 more efficient and elegant.
+
+However, [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) is in the
+standard library and has perfectly fine use cases, too.
 
 S02
 ---
