@@ -1,4 +1,4 @@
-// S06: Besides Marshaling, JSON (and XML) can also be decoded.
+// S06: Besides marshaling, JSON (and XML) can also be decoded.
 //
 // OUTPUT:
 //
@@ -22,7 +22,7 @@ type record struct {
 }
 
 func main() {
-	// TODO: Unmarshal from Stdin into a record struct (4 lines).
+	// TODO: Unmarshal from standard input into a record struct (4 lines).
 	// ...
 	// ...
 	// ...

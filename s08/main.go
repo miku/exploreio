@@ -1,5 +1,7 @@
 // S08: Strings can be readers, io.ReadFull.
 //
+// OUTPUT:
+//
 //     $ go run main.go
 //     Strings
 package main
@@ -12,8 +14,10 @@ import (
 
 func main() {
 	r := strings.NewReader(`Strings can be readers, too.`)
-	// TODO: Read the first 7 bytes of the string into buf, the print to stdout. 5 lines.
+	// TODO: Read the first 7 bytes of the string into a byte slice, then print to stdout (5 lines).
 	b := make([]byte, 7)
-	io.ReadFull(r, b)
+	if _, err := io.ReadFull(r, b); err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(string(b))
 }

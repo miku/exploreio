@@ -1,4 +1,6 @@
-// S07: package io contains many useful readers.
+// S07a: package io contains many useful readers.
+//
+// OUTPUT:
 //
 //    $ cat hello.txt | go run main.go
 //    Reflection is never clear.
@@ -10,6 +12,8 @@ import (
 )
 
 func main() {
-	// TODO: Only read the first 27 bytes of stdin. 3 (or 6) lines with error handling.
-	io.Copy(os.Stdout, io.LimitReader(os.Stdin, 27))
+	// TODO: Only read the first 27 bytes from standard input (3/6 lines).
+	// ...
+	// ...
+	// ...
 }

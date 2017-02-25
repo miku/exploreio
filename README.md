@@ -162,3 +162,8 @@ List of exercise themes
 * S03: Stdin is a file, too.
 * S04: Decompression with gzip and a simple filter chain.
 * S05: An simple image converter.
+* S06: Besides marshaling, JSON (and XML) can also be decoded.
+* S07a: Package io contains many useful readers.
+* S07b: Read sections from a reader.
+* S08: Strings can be readers, io.ReadFull.
+* S09: Random reader and Base64 encoder.

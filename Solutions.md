@@ -181,28 +181,47 @@ they implement [io.Writer](https://golang.org/pkg/io/#Writer).
 S06
 ---
 
+The package [encoding/json](https://golang.org/pkg/encoding/json/) supports
+handling streams with
+[json.Decoder](https://golang.org/pkg/encoding/json/#Decoder):
+
 ```go
-	// TODO: Unmarshal from Stdin into a record struct.
+	// TODO: Unmarshal from standard input into a record struct (4 lines).
 	var rec record
 	if err := json.NewDecoder(os.Stdin).Decode(&rec); err != nil {
 		log.Fatal(err)
 	}
 ```
 
+The decoder takes an [io.Reader](https://golang.org/pkg/io/#Reader) and decodes
+the read bytes into the given values. This is useful, if your have a possible
+large number of values you want to decode, one at a time. The whole stream
+might not fit into memory at once, but the records, that make up the stream can
+be processed - one by one.
+
+
 S07a
 ----
 
+Example for a utility reader: A
+[io.LimitReader](https://golang.org/pkg/io/#LimitReader) modifies a reader, so
+that it returns EOF after (at most) a fixed number of bytes.
+
 ```go
-	// TODO: Only read the first 27 bytes of stdin. 3 (or 6) lines with error handling.
+	// TODO: Only read the first 27 bytes from standard input (3/6 lines).
 	if _, err := io.Copy(os.Stdout, io.LimitReader(os.Stdin, 27)); err != nil {
 		log.Fatal(err)
 	}
 ```
 
-Also possible:
+Where can this be useful? Imagine a HTTP response, where the header specifies
+the content length and you want to limit the reading of the HTTP response body
+to the number of bytes indicated in the header.
+
+Alternative implementation with a byte slice:
 
 ```go
-	// TODO: Only read the first 27 bytes of stdin. 3 (or 6) lines with error handling.
+	// TODO: Only read the first 27 bytes from standard input (3/6 lines).
 	p := make([]byte, 27)
 	_, err := os.Stdin.Read(p)
 	if err != nil {
@@ -211,10 +230,10 @@ Also possible:
 	fmt.Printf(string(p))
 ```
 
-Also possible:
+Yet another implementation, using [io.CopyN](https://golang.org/pkg/io/#CopyN):
 
 ```go
-	// TODO: Only read the first 27 bytes of stdin. 3 (or 6) lines with error handling.
+	// TODO: Only read the first 27 bytes from standard input (3/6 lines).
 	if _, err := io.CopyN(os.Stdout, os.Stdin, 27); err != nil {
 		log.Fatal(err)
 	}
@@ -223,35 +242,62 @@ Also possible:
 S07b
 ----
 
+A [io.SectionReader](https://golang.org/pkg/io/#SectionReader) wraps seek and
+read operations. We skip 5 bytes, then read 9 bytes, which should yield the
+desired string.
+
+We also see that strings can be turned into readers, too.
+
 ```go
-	// TODO: Print the string "io.Reader" to stdout. 4 lines.
+	// TODO: Print the string "io.Reader" to stdout (4 lines).
 	s := io.NewSectionReader(r, 5, 9)
 	if _, err := io.Copy(os.Stdout, s); err != nil {
 		log.Fatal(err)
 	}
 ```
 
+Where can this be useful? Imagine a binary file format, that keeps information
+in various parts of the file and maybe has an index to these sections in a
+header.
+
 S08
 ---
 
+Here, we use [io.ReadFull](https://golang.org/pkg/io/#ReadFull), which will reads the exactly
+the size of the buffer from the reader.
+
+> ReadFull reads exactly len(buf) bytes from r into buf. It returns the number
+of bytes copied and an error if fewer bytes were read. The error is EOF only if
+no bytes were read.
+
 ```go
-	// TODO: Read the first 7 bytes of the string into buf, the print to stdout. 5 lines.
-	buf := make([]byte, 7)
-	if _, err := io.ReadFull(r, buf); err != nil {
+	// TODO: Read the first 7 bytes of the string into a byte slice, then print to stdout (5 lines).
+	b := make([]byte, 7)
+	if _, err := io.ReadFull(r, b); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(buf))
+	fmt.Println(string(b))
 ```
+
+This is a variation of limited reading. Here the limitation is controlled by
+the size of the byte slice.
 
 S09
 ---
 
+We could apply any of the limiting technique. Here is an example with
+[io.CopyN](https://golang.org/pkg/io/#CopyN):
+
 ```go
-	// TODO: Copy 24 byte from random source into the encoder. 3 lines including error handling.
-	if _, err := io.CopyN(encoder, r, 24); err != nil {
+	// TODO: Copy 12 byte from random source into the encoder (3 lines).
+	if _, err := io.CopyN(encoder, r, 12); err != nil {
 		log.Fatal(err)
 	}
 ```
+
+If you vary the random seed from call to call, this snippet can serve as a
+simple version of a [password
+generator](http://unix.stackexchange.com/questions/230673/how-to-generate-a-random-string).
 
 S10
 ---
