@@ -138,11 +138,11 @@ Solutions
 
 Solutions to all exercises can be found in
 [Solutions.md](https://github.com/miku/exploreio/blob/master/Solutions.md).
-Each exercise should have a solution and potentially a short explanation that
+Each exercise has a solution and potentially a short explanation that
 comes with it.
 
 The explanations strive for conciseness. I hope the aim to be brief does not
-cause the comments to be cryptic.
+make the comments too cryptic.
 
 To the instructor
 -----------------
@@ -150,6 +150,6 @@ To the instructor
 If you are using this material for an own course, maybe you like a setup like this:
 
 * Have your laptop open as you show the exercises on a screen. Explain what is required and let people work on the TODOs.
-* Have a separate screen (tablet of other device) open with the solutions manual,
+* Have a separate screen (tablet or other device) open with the solutions manual,
 so you can jump in with a hint or solution.
 
