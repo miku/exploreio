@@ -153,3 +153,8 @@ If you are using this material for an own course, maybe you like a setup like th
 * Have a separate screen (tablet or other device) open with the solutions manual,
 so you can jump in with a hint or solution.
 
+List of exercise themes
+-----------------------
+
+* S00: A file is a reader.
+* S01: Get bytes from a reader.

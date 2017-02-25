@@ -2,13 +2,15 @@
 //
 // Sometimes you want to consume a reader all at once.
 //
+// OUTPUT:
+//
 //     $ go run main.go
 //     Syscall must always be guarded with build tags.
 package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 )
@@ -21,9 +23,14 @@ func main() {
 
 	// TODO: We don't need to loop manually, there is a helper function for that.
 	// TODO: Replace the next 10 lines with 5 that do the same.
-	b, err := ioutil.ReadAll(file)
-	if err != nil {
-		log.Fatal(err)
+	var contents []byte
+	for {
+		b := make([]byte, 8)
+		_, err := file.Read(b)
+		if err == io.EOF {
+			break
+		}
+		contents = append(contents, b...)
 	}
-	fmt.Println(string(b))
+	fmt.Println(string(contents))
 }
