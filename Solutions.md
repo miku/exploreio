@@ -4,13 +4,18 @@ S00
 Change the length of the byte slice, from:
 
 ```go
+// TODO: Change a single character in this program so the complete file is read and printed.
+...
 b := make([]byte, 11)
+...
 ```
 
-e.g. to 41:
+e.g. to 31:
 
 ```go
-b := make([]byte, 41)
+...
+b := make([]byte, 31)
+...
 ```
 
 Any larger number will do as well. The length of the byte slice is the space
@@ -50,7 +55,7 @@ by using [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll):
 While [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) is useful, it is
 sometimes overused. Why is that? Often one wants to read something, process it
 and then write it somewhere. Imagine a HTTP request body, that we want to read,
-then preprocess and then maybe write to file.
+then preprocess and then maybe write to a file.
 [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) would consume the *whole
 data at once*. But for example in the case of a large file upload, there is
 seldom a reason, why we would need to load the whole file into memory before
