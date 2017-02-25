@@ -1,5 +1,7 @@
-# exploreio
-Explore IO with Golang, workshop at Golab 2017
+Explore Golang IO
+=================
+
+Explore IO with Golang, workshop at [Golab](http://golab.io) 2017.
 
 Prerequisites:
 
