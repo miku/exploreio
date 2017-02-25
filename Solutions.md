@@ -87,12 +87,19 @@ occurs. It returns the number of bytes copied and the first error encountered
 while copying, if any.
 
 Internally, [io.Copy](https://golang.org/pkg/io/#Copy) uses a [buffer](https://en.wikipedia.org/wiki/Data_buffer)
-in its very essential sense:
+in an essential sense:
 
 > In computer science, a data buffer (or just buffer) is a region of a physical
 memory storage used to temporarily store data while it is being *moved from one
 place to another*.
 
+Everywhere, where readers and writers need to connect,
+[io.Copy](https://golang.org/pkg/io/#Copy) can be used. As a first example,
+here we read from a file and write to one of the [standard
+streams](https://en.wikipedia.org/wiki/Standard_streams).
+
+We will see the helpful [io.Copy](https://golang.org/pkg/io/#Copy) over and
+over again.
 
 S03
 ---
