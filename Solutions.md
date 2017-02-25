@@ -153,7 +153,7 @@ library, which implements a basic 2-D image support.
 > The fundamental interface is called [Image](https://golang.org/pkg/image/#Image).
 
 There is a [Decode](https://golang.org/pkg/image/#Decode) method, that takes a
-reader and turn it into an image.
+reader and turn it into an [Image](https://golang.org/pkg/image/#Image).
 
 In turn, the concrete image subpackages implement an
 [Encode](https://golang.org/pkg/image/jpeg/#Encode) method, which take an
