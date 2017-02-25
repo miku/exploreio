@@ -20,7 +20,24 @@ able to read the whole file.
 S01
 ---
 
-Use [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll):
+We can shorten these lines:
+
+```go
+	// TODO: We don't need to loop manually, there is a helper function for that.
+	// TODO: Replace the next 10 lines with 5 that do the same.
+	var contents []byte
+	for {
+		b := make([]byte, 8)
+		_, err := file.Read(b)
+		if err == io.EOF {
+			break
+		}
+		contents = append(contents, b...)
+	}
+	fmt.Println(string(contents))
+```
+
+by using [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll):
 
 ```go
 	b, err := ioutil.ReadAll(file)
@@ -42,6 +59,14 @@ more efficient and elegant.
 
 However, [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) is in the
 standard library and has perfectly fine use cases, too.
+
+Noteworthy: EOF will not be reported by `ioutil.ReadAll` as the
+purpose of the method is to consume the reader as a whole:
+
+> ReadAll reads from r until an error or EOF and returns the data it read. A
+successful call returns err == nil, not err == EOF. Because ReadAll is defined
+to read from src until EOF, it does not treat an EOF from Read as an error to
+be reported.
 
 S02
 ---
