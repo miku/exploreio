@@ -8,7 +8,7 @@ Prerequisites
 
 To keep the amount of preparation at a minimum, all you'll need is a working
 [Go installation](https://golang.org/doc/install). Exercise programs will be
-mostly self-contained (in the spirit of a [SSCCE](http://sscce.org/)).
+mostly self-contained.
 
 Here is all you need to do to get started. Clone this repository:
 
