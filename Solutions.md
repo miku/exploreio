@@ -71,7 +71,7 @@ be reported.
 S02
 ---
 
-* io.Copy, os.Stdout (os.Stderr, os.Stdin)
+Use: [io.Copy](https://golang.org/pkg/io/#Copy) and [os.Stdout](https://golang.org/pkg/os/#pkg-variables).
 
 ```go
 	// TODO: Write output to Stdout, without using a byte slice (3 lines, including error handling).
@@ -79,6 +79,20 @@ S02
 		log.Fatal(err)
 	}
 ```
+
+The importance of [io.Copy](https://golang.org/pkg/io/#Copy) can hardly be overstated:
+
+> Copy copies from src to dst until either EOF is reached on src or an error
+occurs. It returns the number of bytes copied and the first error encountered
+while copying, if any.
+
+Internally, [io.Copy](https://golang.org/pkg/io/#Copy) uses a [buffer](https://en.wikipedia.org/wiki/Data_buffer)
+in its very essential sense:
+
+> In computer science, a data buffer (or just buffer) is a region of a physical
+memory storage used to temporarily store data while it is being *moved from one
+place to another*.
+
 
 S03
 ---
