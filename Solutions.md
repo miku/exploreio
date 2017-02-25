@@ -125,7 +125,7 @@ S04
 
 Use [gzip.Reader](https://golang.org/pkg/compress/gzip/#Reader).
 
->  A Reader is an io.Reader that can be read to retrieve uncompressed data from a gzip-format compressed file.
+>  A gzip.Reader is an io.Reader that can be read to retrieve uncompressed data from a gzip-format compressed file.
 
 ```go
 	// TODO: Read gzip compressed input from standard input and print it to standard output,
