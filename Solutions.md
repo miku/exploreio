@@ -104,13 +104,21 @@ over again.
 S03
 ---
 
+Use [os.Stdout](https://golang.org/pkg/os/#pkg-variables) and [os.Stdin](https://golang.org/pkg/os/#pkg-variables).
+
 ```go
-	// TODO: Read input from stdin and pass it to Stdout.
-	// TODO: without using a byte slice (3 lines, including error handling).
+	// TODO: Read input from standard input and pass it to standard output,
+	// TODO: without using a byte slice (3 lines).
 	if _, err := io.Copy(os.Stdout, os.Stdin); err != nil {
 		log.Fatal(err)
 	}
 ```
+
+Here, we have the essence of a
+[filter](https://en.wikipedia.org/wiki/Filter_(software)), namely a program,
+that works with streams, but does not change the stream at all. One can be
+reminded of the [identify
+function](https://en.wikipedia.org/wiki/Identity_function).
 
 S04
 ---
