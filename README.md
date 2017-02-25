@@ -158,3 +158,4 @@ List of exercise themes
 
 * S00: A file is a reader.
 * S01: Get bytes from a reader.
+* S02: Copying and standard streams.
