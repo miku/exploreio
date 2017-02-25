@@ -161,3 +161,4 @@ List of exercise themes
 * S02: Copying and standard streams.
 * S03: Stdin is a file, too.
 * S04: Decompression with gzip and a simple filter chain.
+* S05: An simple image converter.

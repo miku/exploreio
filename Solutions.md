@@ -147,14 +147,31 @@ A filter, that decompresses data read from standard input. As soon we get to
 S05
 ---
 
+Go comes with an [image package](https://golang.org/pkg/image/) in the standard
+library, which implements a basic 2-D image support.
+
+> The fundamental interface is called [Image](https://golang.org/pkg/image/#Image).
+
+There is a [Decode](https://golang.org/pkg/image/#Decode) method, that takes a
+reader and turn it into an image.
+
+In turn, the concrete image subpackages implement an
+[Encode](https://golang.org/pkg/image/jpeg/#Encode) method, which take an
+[io.Writer](https://golang.org/pkg/io/#Writer) and an
+[Image](https://golang.org/pkg/image/#Image) as an argument.
+
 ```go
-	// TODO: Read the image, encode the image. 5 lines with error handling.
-	img, _, err := image.Decode(in)
+	// TODO: Read the image, encode the image (5 lines).
+	img, _, err := image.Decode(r)
 	if err != nil {
 		return err
 	}
-	return jpeg.Encode(out, img, &jpeg.Options{Quality: 10})
+	return jpeg.Encode(w, img, nil)
 ```
+
+This snippet takes an arbitrary reader (e.g. standard input) and turns it into
+an image. The encoding methods are indifferent to the data sink, as long as
+they implement [io.Writer](https://golang.org/pkg/io/#Writer).
 
 S06
 ---

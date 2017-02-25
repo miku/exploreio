@@ -1,15 +1,15 @@
-// S05: An command line image converter.
+// S05: An simple image converter.
 //
 // Read PNG from standard input, write JPG to standard output.
 //
 // Inspired by Donovan, Kernighan (2016), page 287.
 // https://creativecommons.org/licenses/by-nc-sa/4.0/
 //
-//    $ cat gopherbw.png | go run main.go > gopherbw.jpg
-//    $ ls -lah gopherbw.jpg
-//    ...
-//    ... ...... Jan 20 17:08 gopherbw.jpg
+// OUTPUT:
 //
+//    $ cat gopherbw.png | go run main.go > gopherbw.jpg
+//
+// You should find a new file gopherbw.jpg in the directory.
 package main
 
 import (
@@ -22,15 +22,14 @@ import (
 	"os"
 )
 
-// toJPG converts gif or PNG to JPG.
+// toJPG converts a GIF or PNG image int JPEG.
 func toJPG(r io.Reader, w io.Writer) error {
-	// TODO: Read the image, encode the image. 5 lines with error handling.
-	img, _, err := image.Decode(r)
-	if err != nil {
-		return err
-	}
-	return jpeg.Encode(w, img, nil)
-
+	// TODO: Decode the image and encode it to JPEG, write it to the given writer (5 lines).
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
 }
 
 func main() {
