@@ -123,11 +123,13 @@ function](https://en.wikipedia.org/wiki/Identity_function).
 S04
 ---
 
-Use a gzip reader.
+Use [gzip.Reader](https://golang.org/pkg/compress/gzip/#Reader).
+
+>  A Reader is an io.Reader that can be read to retrieve uncompressed data from a gzip-format compressed file.
 
 ```go
-	// TODO: Read compressed input from stdin and pass it to Stdout.
-	// TODO: without using a byte slice (7 lines, including error handling).
+	// TODO: Read gzip compressed input from standard input and print it to standard output,
+	// TODO: without using a byte slice (7 lines).
 	r, err := gzip.NewReader(os.Stdin)
 	if err != nil {
 		log.Fatal(err)
@@ -136,6 +138,11 @@ Use a gzip reader.
 		log.Fatal(err)
 	}
 ```
+
+A filter, that decompresses data read from standard input. As soon we get to
+[io.Copy](https://golang.org/pkg/io/#Copy), a decompressed stream has the same
+*shape* as any other type that implements
+[io.Reader](https://golang.org/pkg/io/#Reader).
 
 S05
 ---
@@ -201,7 +208,6 @@ S07b
 		log.Fatal(err)
 	}
 ```
-
 
 S08
 ---
@@ -420,7 +426,6 @@ S24b
 
 All done.
 
-
 S25
 ---
 
@@ -437,7 +442,6 @@ S27a
 ----
 
 All done.
-
 
 S27b
 ----

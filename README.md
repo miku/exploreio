@@ -159,3 +159,5 @@ List of exercise themes
 * S00: A file is a reader.
 * S01: Get bytes from a reader.
 * S02: Copying and standard streams.
+* S03: Stdin is a file, too.
+* S04: Decompression with gzip and a simple filter chain.
