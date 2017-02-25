@@ -74,6 +74,12 @@ func main() {
 
 ```
 
+The first line gives a one-line summation of the theme of this exercise:
+
+```go
+// S06: Besides marshaling, JSON (and XML) can also be decoded.
+```
+
 
 Below the line marked with *OUTPUT* you will find the expected output of the
 command, along with the way to call the file. Sometimes you need to pass
@@ -134,6 +140,9 @@ Solutions to all exercises can be found in
 [Solutions.md](https://github.com/miku/exploreio/blob/master/Solutions.md).
 Each exercise should have a solution and potentially a short explanation that
 comes with it.
+
+The explanations strive for conciseness. I hope the aim to be brief does not
+cause the comments to be cryptic.
 
 To the instructor
 -----------------

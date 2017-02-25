@@ -1,7 +1,7 @@
 S00
 ---
 
-Change the length of the byte slice.
+Change the length of the byte slice, from:
 
 ```go
 b := make([]byte, 11)
@@ -12,6 +12,10 @@ e.g. to 41:
 ```go
 b := make([]byte, 41)
 ```
+
+Any larger number will do as well. The length of the byte slice is the space
+that we allow the read method to fill. If this space is too small, we won't be
+able to read the whole file.
 
 S01
 ---
