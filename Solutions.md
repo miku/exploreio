@@ -415,6 +415,11 @@ output of a command directly with a
 	}
 ```
 
+Imagine, you want to wrap a legacy command line application with a nice Go API.
+By controlling the input, output and error stream of the application you have
+basic control over the application and you can start parsing and interpreting
+the command output into Go structures.
+
 S17
 ---
 
