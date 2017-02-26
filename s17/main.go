@@ -1,5 +1,9 @@
 // S17: An urgent request.
 //
+// Imagine you get a urgent request to analyze some image data. It's compressed.
+// You need to find the distribution of the "red" values in an image and create a
+// report in form of a pretty table.
+//
 // OUTPUT:
 //
 //     $ cat gopherbw.png.gz | go run main.go | sort -nr | head -10

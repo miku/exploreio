@@ -1,5 +1,7 @@
 // S18a: Response bodies.
 //
+// OUTPUT:
+//
 //     $ go run main.go
 //     <!DOCTYPE html>
 //     ...
@@ -22,9 +24,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// TODO: Like curl, print to stdout. 4 (5) lines (with err handling).
-	defer resp.Body.Close()
-	if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
-		log.Fatal(err)
-	}
+	// TODO: Like curl, print the response body to standard output (4 lines).
+	// ...
+	// ...
+	// ...
+	// ...
 }

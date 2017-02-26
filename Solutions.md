@@ -426,31 +426,40 @@ S17
 A urgent request.
 
 Imagine you get a urgent request to analyze some image data. It's compressed.
-You need to find the distribution of the "red" values in an image a create a
+You need to find the distribution of the "red" values in an image and create
 report in form of a pretty table.
 
 This example is short, about 20 lines of code and uses readers and writers all over the place:
 
 * first we read from standard input
-* we decompress the data on the fly
-* the image decoding works with a reader
+* we decompress the data on the fly with a gzip
+* the image decoding takes a reader
 * we use a formatter, that works with a writer
-* we use a buffer to temporarily store tab separated data
+* we use a buffer to temporarily store tab separated values
 * we use a tabwriter to prettify the data
 * we write the final report to standard output
 
-Things get really fun, if you can start combining them in different ways.
+We see, how we can build more complex filters from simple parts.
 
 S18a
 ----
 
+We find another important value that is an
+[io.Reader](https://golang.org/pkg/io/#Reader): the body of an
+[http.Response](https://golang.org/pkg/net/http/#Response). It is actually a
+[ReadCloser](https://golang.org/pkg/io/#ReadCloser), a type that can be read
+from and closed.
+
 ```go
-	// TODO: Like curl, print to stdout. 4 (5) lines (with err handling).
+	// TODO: Like curl, print the response body to standard output (4 lines).
 	defer resp.Body.Close()
 	if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
 		log.Fatal(err)
 	}
 ```
+
+With the familiar [io.Copy](https://golang.org/pkg/io/#Copy), we have a simple
+curl-like program.
 
 S18b
 ----
