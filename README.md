@@ -153,8 +153,8 @@ If you are using this material for an own course, maybe you like a setup like th
 * Have a separate screen (tablet or other device) open with the solutions manual,
 so you can jump in with a hint or solution.
 
-List of exercises
------------------
+List of examples (x) and exercises
+----------------------------------
 
 * S00: A file is a reader.
 * S01: Get bytes from a reader.
@@ -177,10 +177,11 @@ List of exercises
 * S17: An urgent request.
 * S18a: Response bodies.
 * S18b: HTTP on the TCP level.
-* S19: An atomic file implementation.
+* S19: An atomic file implementation. (x)
 * S20: The Reader interface.
 * S21: A reader that converts all unicode letter mapped to their upper case.
 * S22: A writer that discards everything that is written to it.
 * S23: An uppercase writer.
 * S24a: A counting reader.
-* S24b: A simple language guesser.
+* S24b: A simple language guesser. (x)
+* S25: Generate data. (x)

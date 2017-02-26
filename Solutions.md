@@ -709,7 +709,10 @@ It is ok, if we collect the trigram frequencies chuck by chunk.
 S25
 ---
 
-All done.
+In this example, we generate a stream of data. In fact, with a fixed amount of
+memory we are able to generate endless amount of data.
+
+
 
 S26
 ---
