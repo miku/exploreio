@@ -655,8 +655,12 @@ func (w *UpperWriter) Write(p []byte) (n int, err error) {
 S24a
 ----
 
+This counting reader is an example of a reader, that keep track of a metric
+over time. Here, we just count the number of bytes read in total.
+
 ```go
-// TODO: implement a reader that counts the total number of bytes read. 9 lines.
+// TODO: Implement a reader that counts the total number of bytes read (12 lines).
+// TODO: It should have a Count() uint64 method, that returns the number of bytes read so far.
 type CountingReader struct {
 	r     io.Reader
 	count uint64
@@ -668,15 +672,39 @@ func (r *CountingReader) Read(p []byte) (n int, err error) {
 	return
 }
 
+// Count returns the total number of bytes read.
 func (r *CountingReader) Count() uint64 {
 	return atomic.LoadUint64(&r.count)
 }
 ```
 
+The reader embeds another reader and keeps a count. In the Read method, we
+increment the count, in this case atomially with the help of the
+[atomic.AddUint64](https://golang.org/pkg/sync/atomic/#AddUint64).
+
+Finally, we define a public method count, that returns the number of bytes
+read, that atomically reads of the value with
+[atomic.LoadUint64](https://golang.org/pkg/sync/atomic/#LoadUint64).
+
+While the number of bytes read is often returned by IO methods, you can imagine
+more interesting metrics implemented in this way. For example you could keep
+track of metrics for the last minute, last five minutes and so on.
+
 S24b
 ----
 
-All done.
+In this example, there is no TODO. It is just an example for a more elaborate
+statistic, that we measure, as data passes through this reader.
+
+The main idea is that - similar to a reader that just count the number of bytes
+read - that we keep the original data untouched and pass it on as is, while
+measuring the data and expose the results through additional methods.
+
+Here, we guess the natural language of the input. We use a simple trigram-based
+language model. We could implement this with a simple method as well. The
+advantage of such a reader based method would be, that this approach would work
+even for large files, because we do not need to look at the data all at once.
+It is ok, if we collect the trigram frequencies chuck by chunk.
 
 S25
 ---

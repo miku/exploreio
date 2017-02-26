@@ -1,7 +1,9 @@
-// S24a: A counting reader, count the number of bytes read in total.
+// S24a: A counting reader.
+//
+// OUTPUT:
 //
 //     $ cat main.go | go run main.go
-//     n (io.Copy) = 550, n (CountingReader) = 550
+//     n (io.Copy) = 775, n (CountingReader) = 775
 package main
 
 import (
@@ -13,21 +15,22 @@ import (
 	"sync/atomic"
 )
 
-// TODO: implement a reader that counts the total number of bytes read. 12 lines.
-type CountingReader struct {
-	r     io.Reader
-	count uint64
-}
+// TODO: Implement a reader that counts the total number of bytes read (12 lines).
+// TODO: It should have a Count() uint64 method, that returns the number of bytes read so far.
+// ...
+// ...
+// ...
+// ...
 
-func (r *CountingReader) Read(p []byte) (n int, err error) {
-	n, err = r.r.Read(p)
-	atomic.AddUint64(&r.count, uint64(n))
-	return
-}
+// ...
+// ...
+// ...
+// ...
+// ...
 
-func (r *CountingReader) Count() uint64 {
-	return atomic.LoadUint64(&r.count)
-}
+// ...
+// ...
+// ...
 
 func main() {
 	cr := &CountingReader{r: os.Stdin}

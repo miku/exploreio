@@ -1,4 +1,6 @@
-// S24b: Simplistic language guesser.
+// S24b: A simple language guesser.
+//
+// OUTPUT:
 //
 //     $ go run main.go
 //     en en

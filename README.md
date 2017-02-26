@@ -182,3 +182,5 @@ List of exercises
 * S21: A reader that converts all unicode letter mapped to their upper case.
 * S22: A writer that discards everything that is written to it.
 * S23: An uppercase writer.
+* S24a: A counting reader.
+* S24b: A simple language guesser.
