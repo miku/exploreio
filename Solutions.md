@@ -746,7 +746,7 @@ type EndlessStream struct {
 S26
 ---
 
-All done.
+![](https://github.com/miku/exploreio/blob/wip/casts/cowmf6c23w1prceotyf54lt19.gif)
 
 ---
 
