@@ -398,8 +398,17 @@ value in base 16, with lower-case letters for a-f.
 S16
 ---
 
+The [exec.Cmd](https://golang.org/pkg/os/exec/#Cmd) struct contains fields for
+the standard streams, namely `Stdin` of type
+[io.Reader](https://golang.org/pkg/io/#Reader) and `Stdout` and `Stderr` or
+type [io.Writer](https://golang.org/pkg/io/#Writer). Since
+[bytes.Buffer](https://golang.org/pkg/bytes/#Buffer) is an
+[io.Writer](https://golang.org/pkg/io/#Writer) we can connect the standard
+output of a command directly with a
+[bytes.Buffer](https://golang.org/pkg/bytes/#Buffer).
+
 ```go
-	// TODO: Stream output of command directly into the buffer.
+	// TODO: Stream output of command into the buffer (4 lines).
 	cmd.Stdout = &buf
 	if err := cmd.Run(); err != nil {
 		log.Fatal(err)

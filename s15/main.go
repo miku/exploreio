@@ -2,7 +2,7 @@
 //
 // > In computer science, a data buffer (or just buffer) is a region of a physical
 // memory storage used to temporarily store data while it is being moved from one
-// place to another. /wiki/Data_buffer
+// place to another. https://en.wikipedia.org/wiki/Data_buffer
 //
 // OUTPUT:
 //

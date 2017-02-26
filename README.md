@@ -171,3 +171,6 @@ List of exercises
 * S11: Read a file, line by line.
 * S12: Read from multiple readers in turn.
 * S13: Write to more than one writer at once.
+* S14: Read into variables.
+* S15: Hello Buffer.
+* S16: Reading the output of a shell command into a buffer.

@@ -1,7 +1,9 @@
 // S16: Reading the output of a shell command into a buffer.
 //
+// OUTPUT:
+//
 //     $ go run main.go
-//     output has 8 bytes: 6d 61 69 6e 2e 67 6f 0a
+//     command output has 8 bytes: main.go
 package main
 
 import (
@@ -14,10 +16,10 @@ import (
 func main() {
 	var buf bytes.Buffer
 	cmd := exec.Command("ls")
-	// TODO: Stream output of command directly into the buffer.
-	cmd.Stdout = &buf
-	if err := cmd.Run(); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("output has %d bytes: %s\n", buf.Len(), buf.String())
+	// TODO: Stream output of command into the buffer (4 lines).
+	// ...
+	// ...
+	// ...
+	// ...
+	fmt.Printf("command output has %d bytes: %s", buf.Len(), buf.String())
 }
