@@ -544,7 +544,7 @@ type UpperReader struct {
 
 Why embed another reader? If we want to uppercase bytes, we have to read the bytes from somewhere.
 By embedding the type we make it easy to drop in a filter like this into a processing pipeline.
-In the example, we can seamlessly connect the UpperReader with the standard output:
+In the example, we can seamlessly connect the UpperReader with the standard input:
 
 ```go
 ...
@@ -572,9 +572,9 @@ func (r *UpperReader) Read(p []byte) (n int, err error) {
 
 The Read method implements the core logic. It first reads from the underlying
 reader. If everything went well, the byte slice `p` will be populated. Now we
-simply apply a [bytes.ToUpper](https://golang.org/pkg/bytes/#ToUpper) to the
-read bytes and [copy](https://golang.org/pkg/builtin/#copy) it to the same
-slice. This works, because
+apply [bytes.ToUpper](https://golang.org/pkg/bytes/#ToUpper) to the read bytes
+and [copy](https://golang.org/pkg/builtin/#copy) them back into the same slice.
+This works, because
 
 ```go
 bytes.ToUpper(p)
@@ -582,7 +582,7 @@ bytes.ToUpper(p)
 
 is evalated first, holding the result, which is
 
-> a copy of the byte slice s with all Unicode letters mapped to their upper case.
+> a copy of the byte slice [p] with all Unicode letters mapped to their upper case.
 
 This upper-cased version of the byte slice is then copied into the byte slice,
 that the Read method got as an argument, basically the space we are allowed to
