@@ -461,11 +461,23 @@ from and closed.
 With the familiar [io.Copy](https://golang.org/pkg/io/#Copy), we have a simple
 curl-like program.
 
+While this program would work without the line with the defer statement, for serious program
+you should always close the response body.
+
+From the [http.Client](https://golang.org/pkg/net/http/#Client.Get) documentation:
+
+> Caller should close resp.Body when done reading from it.
+
 S18b
 ----
 
+HTTP is a text based protocol. Instead of using the
+[http.Get](https://golang.org/pkg/net/http/#Get) we craft a similar request
+ourselves. We write the request string to the connection. After that we try to
+read from the connection and print the result to standard output.
+
 ```go
-	// TODO: Send a GET request, read the reponse and print to stdout.
+	// TODO: Send a GET request, read the reponse and print it to standard output (6 lines).
 	if _, err := io.WriteString(conn, "GET / HTTP/1.0\r\n\r\n"); err != nil {
 		log.Fatal(err)
 	}
