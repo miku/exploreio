@@ -179,3 +179,4 @@ List of exercises
 * S18b: HTTP on the TCP level.
 * S19: An atomic file implementation.
 * S20: The Reader interface.
+* S21: A reader that converts all unicode letter mapped to their upper case.

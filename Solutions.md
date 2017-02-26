@@ -531,21 +531,67 @@ where you can use an [io.Reader](https://golang.org/pkg/io/#Reader), e.g. in
 S21
 ---
 
+All types implementing [io.Reader](https://golang.org/pkg/io/#Reader) must
+implement a Read method with the exact signature. A typical pattern to implement custom readers
+is to embed another reader inside the type, like this:
+
 ```go
-// TODO: Implement UpperReader, a reader that converts all Unicode letter mapped to their upper case. 11 lines.
+// UpperReader is an uppercase filter.
 type UpperReader struct {
 	r io.Reader
 }
+```
 
+Why embed another reader? If we want to uppercase bytes, we have to read the bytes from somewhere.
+By embedding the type we make it easy to drop in a filter like this into a processing pipeline.
+In the example, we can seamlessly connect the UpperReader with the standard output:
+
+```go
+...
+_, err := io.Copy(os.Stdout, &UpperReader{r: os.Stdin})
+...
+```
+
+Often, you'll see dedicated constructor for this, like
+[bufio.NewReader](https://golang.org/pkg/bufio/#NewReader) or
+[gzip.NewReader](https://golang.org/pkg/compress/gzip/#NewReader). For our tiny
+example, we can create the type in a more ad-hoc fashion - but the idea is the
+same.
+
+```go
+// TODO: Implement UpperReader, a reader that converts all Unicode letter mapped to their upper case (6 lines).
 func (r *UpperReader) Read(p []byte) (n int, err error) {
 	n, err = r.r.Read(p)
 	if err != nil {
 		return
 	}
 	copy(p, bytes.ToUpper(p))
-	return len(p), nil
+	return
 }
 ```
+
+The Read method implements the core logic. It first reads from the underlying
+reader. If everything went well, the byte slice `p` will be populated. Now we
+simply apply a [bytes.ToUpper](https://golang.org/pkg/bytes/#ToUpper) to the
+read bytes and [copy](https://golang.org/pkg/builtin/#copy) it to the same
+slice. This works, because
+
+```go
+bytes.ToUpper(p)
+```
+
+is evalated first, holding the result, which is
+
+> a copy of the byte slice s with all Unicode letters mapped to their upper case.
+
+This upper-cased version of the byte slice is then copied into the byte slice,
+that the Read method got as an argument, basically the space we are allowed to
+populate. Since the mapping from lowercase to uppercase does not change the
+number of bytes read, we can reuse `n` as the number of bytes read.
+
+If this looks complicated, please be patient. While this pattern might look
+unfamiliar at first, it will become familiar the more you are exposed to it and
+the more you try to implement readers yourself.
 
 S22
 ---

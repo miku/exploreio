@@ -1,4 +1,4 @@
-// S21: A reader that converts all Unicode letter mapped to their upper case.
+// S21: A reader that converts all unicode letter mapped to their upper case.
 //
 //     $ echo "Hello Gophers" | go run main.go
 //     HELLO GOPHERS
@@ -11,18 +11,19 @@ import (
 	"os"
 )
 
-// TODO: Implement UpperReader, a reader that converts all Unicode letter mapped to their upper case. 11 lines.
+// UpperReader is an uppercase filter.
 type UpperReader struct {
 	r io.Reader
 }
 
+// TODO: Implement UpperReader, a reader that converts all Unicode letter mapped to their upper case (6 lines).
 func (r *UpperReader) Read(p []byte) (n int, err error) {
-	n, err = r.r.Read(p)
-	if err != nil {
-		return
-	}
-	copy(p, bytes.ToUpper(p))
-	return
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
+	// ...
 }
 
 func main() {
