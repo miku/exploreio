@@ -392,8 +392,8 @@ analogue.
 Here, we read one byte after another. We first check for
 [io.EOF](https://golang.org/pkg/io/#pkg-variables), so we can break the loop
 accordingly. Any other error still needs to be handled. Finally, we use a
-[format verb](https://golang.org/pkg/fmt/#hdr-Printing) to the value in base
-16, with lower-case letters for a-f.
+[format verb](https://golang.org/pkg/fmt/#hdr-Printing) to format the integer
+value in base 16, with lower-case letters for a-f.
 
 S16
 ---
