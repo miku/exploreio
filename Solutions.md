@@ -596,14 +596,40 @@ the more you try to implement readers yourself.
 S22
 ---
 
+A writer that discards everything that is written to it is in a certain way
+similar to a reader, from which nothing can be read. While it does not seem
+very useful, Unix users will be reminded of the
+[null](https://en.wikipedia.org/wiki/Null_device), which actually has
+reasonable use cases.
+
 ```go
-// TODO: Implement Discard, that throws away everything that is written. 4 lines.
+// TODO: Implement type Discard, which throws away everything that is written to it (4 lines).
 type Discard struct{}
 
-func (r *Discard) Write(p []byte) (n int, err error) {
+func (w *Discard) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 ```
+
+We need to implement the Write method with the correct signature. The
+implementation is simple, since we do not need to do anything at all. We
+immediately return and report the number of bytes processed and a nil error.
+Writing to Discard always succeeds.
+
+Why do we return `len(p)` and not just 0?
+
+First, the semantics says that Write should return the number of bytes written:
+
+> It returns the number of bytes written from p (0 <= n <= len(p)) and any
+error encountered that caused the write to stop early
+([io.Writer](https://golang.org/pkg/io/#Writer)).
+
+While we do not write anything, we consider all byte to be processed. All bytes
+will disappear. If we return 0, we actually get an error, namely
+[io.ErrShortWrite](https://golang.org/pkg/io/#pkg-variables):
+
+> ErrShortWrite means that a write accepted fewer bytes than requested but
+failed to return an explicit error.
 
 S23
 ---
