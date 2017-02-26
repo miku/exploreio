@@ -28,13 +28,21 @@ import (
 	"time"
 )
 
-type LastPrice struct {
+// linesToFill is the numnber of lines generated for the internal buffer.
+const linesToFill = 1000
+
+// EndlessStream generate a stream of endless data. It uses an internal buffer to
+// decouple data production and consumption. When the buffer is empty, we first
+// fill the buffer (with linesToFill lines of data), then pass control back to the
+// Read method, which then drains the buffer with each call to Read.
+type EndlessStream struct {
 	buf   bytes.Buffer
 	cur   time.Time
-	price float64 // bad idea
+	value float64
 }
 
-func (r *LastPrice) Read(p []byte) (n int, err error) {
+// Read will provide the reader with additional data. This reader will never signal an EOF.
+func (r *EndlessStream) Read(p []byte) (n int, err error) {
 	if r.buf.Len() == 0 {
 		if err := r.fill(); err != nil {
 			return 0, err
@@ -49,23 +57,25 @@ func (r *LastPrice) Read(p []byte) (n int, err error) {
 	return len(b), nil
 }
 
-func (r *LastPrice) fill() error {
+// fill is a helper method to fill up the internal buffer with the actual data,
+// that is then read via Read.
+func (r *EndlessStream) fill() error {
 	if r.cur.IsZero() {
 		r.cur = time.Now()
 	}
-	if r.price == 0 {
-		r.price = 1 + rand.Float64()
+	if r.value == 0 {
+		r.value = 1 + rand.Float64()
 	}
-	for i := 0; i < 100; i++ {
+	for i := 0; i < linesToFill; i++ {
 		if _, err := fmt.Fprintf(&r.buf, "%s\t%0.4f\n",
 			r.cur.Format("2006-02-01 15:04:05.999"),
-			r.price); err != nil {
+			r.value); err != nil {
 			return err
 		}
 		if rand.Float64() > 0.50 {
-			r.price += rand.Float64()
+			r.value += rand.Float64()
 		} else {
-			r.price -= rand.Float64()
+			r.value -= rand.Float64()
 		}
 		r.cur = r.cur.Add(1 * time.Millisecond)
 	}
@@ -73,7 +83,7 @@ func (r *LastPrice) fill() error {
 }
 
 func main() {
-	pr := &LastPrice{}
+	pr := &EndlessStream{}
 	if _, err := io.Copy(os.Stdout, pr); err != nil {
 		log.Fatal(err)
 	}

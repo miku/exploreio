@@ -710,9 +710,29 @@ S25
 ---
 
 In this example, we generate a stream of data. In fact, with a fixed amount of
-memory we generate endless amount of data.
+memory we generate endless amount of data. This can be useful in testing
+scenarios: The time series could be used to test a high frequency trading
+algorithm or to simulate an internet of things style sensor device emitting a
+value every microsecond.
 
+```shell
+$ go run main.go
+2017-26-02 20:44:38.901	1.6047
+2017-26-02 20:44:38.902	2.2692
+2017-26-02 20:44:38.903	1.8446
+2017-26-02 20:44:38.904	1.9102
+2017-26-02 20:44:38.905	1.8133
+2017-26-02 20:44:38.906	1.2980
+2017-26-02 20:44:38.907	1.5123
+2017-26-02 20:44:38.908	1.1942
+2017-26-02 20:44:38.909	0.9112
+...
+```
 
+EndlessStream generates a stream of endless data. It uses an internal buffer to
+decouple data production and consumption. When the buffer is empty, we first
+fill the buffer (with linesToFill lines of data), then pass control back to the
+Read method, which then drains the buffer with each call to Read.
 
 S26
 ---
