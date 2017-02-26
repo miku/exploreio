@@ -634,7 +634,15 @@ failed to return an explicit error.
 S23
 ---
 
+Similar to a type, that reads bytes and converts them to upper case, we can
+implement a writer, that converts all Unicode letter to their upper case. We
+embed a writer, which is where we will write the upper case version to. The
+implementation is simpler that the corresponding reader, we transform the bytes
+immediately before we write them to the underlying writer. We pass the return
+values of the Write directly back.
+
 ```go
+// TODO: Implement UpperWriter, a reader that converts all Unicode letter mapped to their upper case (6 lines).
 type UpperWriter struct {
 	w io.Writer
 }
