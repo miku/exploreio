@@ -58,7 +58,7 @@ func (r *LastPrice) fill() error {
 	}
 	for i := 0; i < 100; i++ {
 		if _, err := fmt.Fprintf(&r.buf, "%s\t%0.4f\n",
-			r.cur.Format("2006-02-01 15:04:05"),
+			r.cur.Format("2006-02-01 15:04:05.999"),
 			r.price); err != nil {
 			return err
 		}

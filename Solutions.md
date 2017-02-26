@@ -710,7 +710,7 @@ S25
 ---
 
 In this example, we generate a stream of data. In fact, with a fixed amount of
-memory we are able to generate endless amount of data.
+memory we generate endless amount of data.
 
 
 
