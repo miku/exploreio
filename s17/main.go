@@ -1,16 +1,18 @@
 // S17: An urgent request.
 //
-// $ cat gopherbw.png.gz | go run main.go | sort -nr | head -10
-//  8543296|0
-//  6353501|65535
-//     1346|5140
-//      881|21588
-//      789|5397
-//      751|14135
-//      677|21331
-//      607|34181
-//      547|11822
-//      506|45489
+// OUTPUT:
+//
+//     $ cat gopherbw.png.gz | go run main.go | sort -nr | head -10
+//      8543296|0
+//      6353501|65535
+//         1346|5140
+//          881|21588
+//          789|5397
+//          751|14135
+//          677|21331
+//          607|34181
+//          547|11822
+//          506|45489
 
 package main
 
@@ -21,19 +23,22 @@ import (
 	"image"
 	_ "image/png"
 	"io"
+	"log"
 	"os"
 	"text/tabwriter"
 )
 
 func main() {
+	// Read compressed data from standard input.
 	r, _ := gzip.NewReader(os.Stdin)
+	// Decode image from stream.
 	img, _, _ := image.Decode(r)
 
-	// Get dimensions.
+	// Get image dimensions.
 	rectangle := img.Bounds()
 	width, height := rectangle.Size().X, rectangle.Size().Y
 
-	// Store distribution of "r" values in a map.
+	// Store distribution of "red" values in a map.
 	rdist := make(map[uint32]int)
 
 	for x := 0; x < width; x++ {
@@ -43,14 +48,18 @@ func main() {
 		}
 	}
 
-	// Write tabulated values into buf.
+	// Write tabulated values into a buffer.
 	var buf bytes.Buffer
 	for k, v := range rdist {
 		fmt.Fprintf(&buf, "%d\t%d\n", v, k)
 	}
 
-	// Write to stdout.
+	// Create a pretty printer, connect it with standard output.
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight|tabwriter.Debug)
-	io.Copy(w, &buf)
-	w.Flush()
+	defer w.Flush()
+
+	// Copy buffer content to the pretty printer.
+	if _, err := io.Copy(w, &buf); err != nil {
+		log.Fatal(err)
+	}
 }

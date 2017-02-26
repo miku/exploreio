@@ -423,7 +423,23 @@ the command output into Go structures.
 S17
 ---
 
-All done.
+A urgent request.
+
+Imagine you get a urgent request to analyze some image data. It's compressed.
+You need to find the distribution of the "red" values in an image a create a
+report in form of a pretty table.
+
+This example is short, about 20 lines of code and uses readers and writers all over the place:
+
+* first we read from standard input
+* we decompress the data on the fly
+* the image decoding works with a reader
+* we use a formatter, that works with a writer
+* we use a buffer to temporarily store tab separated data
+* we use a tabwriter to prettify the data
+* we write the final report to standard output
+
+Things get really fun, if you can start combining them in different ways.
 
 S18a
 ----

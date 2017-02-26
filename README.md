@@ -174,3 +174,4 @@ List of exercises
 * S14: Read into variables.
 * S15: Hello Buffer.
 * S16: Reading the output of a shell command into a buffer.
+* S17: An urgent request.
