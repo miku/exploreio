@@ -729,10 +729,19 @@ $ go run main.go
 ...
 ```
 
-EndlessStream generates a stream of endless data. It uses an internal buffer to
-decouple data production and consumption. When the buffer is empty, we first
-fill the buffer (with linesToFill lines of data), then pass control back to the
-Read method, which then drains the buffer with each call to Read.
+The implementation uses an internal buffer to decouple data production and consumption.
+
+```go
+// EndlessStream generates a stream of endless data. It uses an internal buffer to
+// decouple data production and consumption. When the buffer is empty, we first
+// fill the buffer (with linesToFill lines of data), then pass control back to the
+// Read method, which then drains the buffer with each call to Read.
+type EndlessStream struct {
+	buf   bytes.Buffer
+	cur   time.Time
+	value float64
+}
+```
 
 S26
 ---
