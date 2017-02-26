@@ -7,6 +7,12 @@
 // consistent state and never represent an in-progress write.
 //
 // NOTE: `os.Rename` may not be atomic on your operating system.
+//
+// OUTPUT:
+//
+//     $ go run main.go
+//     2017/02/26 16:27:03 tempfile at: hello.txt257898699
+//
 package main
 
 import (
@@ -71,7 +77,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	io.WriteString(file, "Atomic gopher.\n")
-	time.Sleep(5 * time.Second)
-	file.Close()
+	defer file.Close()
+	if _, err := io.WriteString(file, "Atomic gopher.\n"); err != nil {
+		log.Fatal(err)
+	}
+	// If you run "ls" in the directory, you should see the temporary file,
+	// e.g. hello.txt257898699.
+	// When the program finishes, the temporary file will be gone.
+	time.Sleep(15 * time.Second)
 }
