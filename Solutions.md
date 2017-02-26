@@ -495,6 +495,8 @@ result to standard output.
 S19
 ---
 
+No TODO.
+
 Example for a custom type derived from a file: [atomicfile](https://github.com/facebookgo/atomicfile).
 We can write to an atomic file just like any other file:
 
@@ -512,12 +514,19 @@ many operating systems) when the file is closed.
 S20
 ---
 
+This is our first own io.Reader implementation. It does one thing: it says
+there is nothing to read. Hence the name *Empty*.
+
 ```go
-// TODO: Implement the Read interface, always return EOF. 3 lines.
+// TODO: Implement io.Reader interface. Always return EOF (3 lines).
 func (r *Empty) Read(p []byte) (n int, err error) {
 	return 0, io.EOF
 }
 ```
+
+Even this is very limited in functionality, you can use this type anywhere,
+where you can use an [io.Reader](https://golang.org/pkg/io/#Reader), e.g. in
+[io.Copy](https://golang.org/pkg/io/#Copy).
 
 S21
 ---

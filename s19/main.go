@@ -1,3 +1,5 @@
+// S19: An atomic file implementation.
+//
 // BSD License
 // For atomicfile software
 // Copyright (c) 2015, Facebook, Inc. All rights reserved.
@@ -83,6 +85,6 @@ func main() {
 	}
 	// If you run "ls" in the directory, you should see the temporary file,
 	// e.g. hello.txt257898699.
-	// When the program finishes, the temporary file will be gone.
+	// When the program finishes (after 15 seconds), the temporary file will be gone.
 	time.Sleep(15 * time.Second)
 }

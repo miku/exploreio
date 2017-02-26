@@ -177,3 +177,5 @@ List of exercises
 * S17: An urgent request.
 * S18a: Response bodies.
 * S18b: HTTP on the TCP level.
+* S19: An atomic file implementation.
+* S20: The Reader interface.
