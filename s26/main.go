@@ -10,15 +10,19 @@ import (
 	"time"
 )
 
+// SlowReader is a reader that throttles reads.
 type SlowReader struct {
 	r        io.Reader
 	throttle <-chan time.Time
 }
 
-func New(r io.Reader, dur time.Duration) *SlowReader {
+// NewReader creates a new SlowReader which inserts a given delay between each byte it emits.
+func NewReader(r io.Reader, dur time.Duration) *SlowReader {
 	return &SlowReader{r: r, throttle: time.Tick(dur)}
 }
 
+// Read will insert a slow delay into the reading process. At most one byte will
+// be returned, independent of the size of p.
 func (r *SlowReader) Read(p []byte) (n int, err error) {
 	<-r.throttle
 	if len(p) == 0 {
@@ -43,9 +47,8 @@ which affect the external environment of a machine, are not nearly so well
 understood. They are often added to a programming language only as an
 afterthought.
 `
-	r := strings.NewReader(s)
-	sr := New(r, 50*time.Millisecond)
-	if _, err := io.Copy(os.Stdout, sr); err != nil {
+	slow := NewReader(strings.NewReader(s), 50*time.Millisecond)
+	if _, err := io.Copy(os.Stdout, slow); err != nil {
 		log.Fatal(err)
 	}
 }

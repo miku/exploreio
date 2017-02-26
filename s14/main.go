@@ -10,11 +10,7 @@
 //     exit status 1
 package main
 
-import (
-	"fmt"
-	"log"
-	"os"
-)
+import "fmt"
 
 func main() {
 	var (
@@ -22,7 +18,7 @@ func main() {
 		f float64
 		s string
 	)
-	// TODO: Read an int, a float and a string from stdin (3 lines)
+	// TODO: Read an int, a float and a string from standard input (3 lines).
 	// ...
 	// ...
 	// ...
