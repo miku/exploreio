@@ -599,7 +599,7 @@ S22
 A writer that discards everything that is written to it is in a certain way
 similar to a reader, from which nothing can be read. While it does not seem
 very useful, Unix users will be reminded of the
-[null](https://en.wikipedia.org/wiki/Null_device), which actually has
+[null device](https://en.wikipedia.org/wiki/Null_device), which actually has
 reasonable use cases.
 
 ```go
