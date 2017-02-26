@@ -176,3 +176,4 @@ List of exercises
 * S16: Reading the output of a shell command into a buffer.
 * S17: An urgent request.
 * S18a: Response bodies.
+* S18b: HTTP on the TCP level.

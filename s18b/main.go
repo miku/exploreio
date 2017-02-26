@@ -33,10 +33,4 @@ func main() {
 	}
 	defer conn.Close()
 	// TODO: Send a GET request, read the reponse and print it to standard output (6 lines).
-	if _, err := io.WriteString(conn, "GET / HTTP/1.0\r\n\r\n"); err != nil {
-		log.Fatal(err)
-	}
-	if _, err := io.Copy(os.Stdout, conn); err != nil {
-		log.Fatal(err)
-	}
 }

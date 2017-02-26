@@ -473,8 +473,14 @@ S18b
 
 HTTP is a text based protocol. Instead of using the
 [http.Get](https://golang.org/pkg/net/http/#Get) we craft a similar request
-ourselves. We write the request string to the connection. After that we try to
-read from the connection and print the result to standard output.
+ourselves. We write the request string:
+
+```
+GET / HTTP/1.0\r\n\r\n
+```
+
+to the connection. After that we try to read from the connection and print the
+result to standard output.
 
 ```go
 	// TODO: Send a GET request, read the reponse and print it to standard output (6 lines).
@@ -489,7 +495,19 @@ read from the connection and print the result to standard output.
 S19
 ---
 
-All done.
+Example for a custom type derived from a file: [atomicfile](https://github.com/facebookgo/atomicfile).
+We can write to an atomic file just like any other file:
+
+```go
+	if _, err := io.WriteString(file, "Atomic gopher.\n"); err != nil {
+		log.Fatal(err)
+	}
+```
+
+But the semantics are slightly different. Instead of writing to the file
+directly, all content is written to a temporary file first. The real file is
+only created (by renaming the temporary file, which is an atomic operation on
+many operating systems) when the file is closed.
 
 S20
 ---
