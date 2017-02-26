@@ -199,7 +199,6 @@ large number of values you want to decode, one at a time. The whole stream
 might not fit into memory at once, but the records, that make up the stream can
 be processed - one by one.
 
-
 S07a
 ----
 
@@ -305,7 +304,6 @@ S10
 Another example for [io.Copy](https://golang.org/pkg/io/#Copy). Here, the
 destination is a writer, that prettifies tabular data.
 
-
 ```go
 	// TODO: Read tabulated data from standard in and write it to the tabwriter (3 lines).
 	if _, err := io.Copy(w, os.Stdin); err != nil {
@@ -369,7 +367,13 @@ text to yield values.
 S15
 ---
 
-One of the most versatile types for IO are buffers [](bytes.Buffer)
+Buffers are versatile types. The [bytes.Buffer](bytes.Buffer) is a
+variable-sized buffer of bytes with Read and Write methods. You can a read a
+[single byte](https://golang.org/pkg/bytes/#Buffer.ReadByte),
+[bytes](https://golang.org/pkg/bytes/#Buffer.ReadBytes),
+[runes](https://golang.org/pkg/bytes/#Buffer.ReadRune) or a
+[string](https://golang.org/pkg/bytes/#Buffer.ReadString) from it. Writing is
+analogue.
 
 ```go
 	// TODO: Read one byte at a time from the buffer and print the hex value on stdout (10 lines).
@@ -384,6 +388,12 @@ One of the most versatile types for IO are buffers [](bytes.Buffer)
 		fmt.Fprintf(os.Stdout, "%x\n", b)
 	}
 ```
+
+Here, we read one byte after another. We first check for
+[io.EOF](https://golang.org/pkg/io/#pkg-variables), so we can break the loop
+accordingly. Any other error still needs to be handled. Finally, we use a
+[format verb](https://golang.org/pkg/fmt/#hdr-Printing) to the value in base
+16, with lower-case letters for a-f.
 
 S16
 ---
