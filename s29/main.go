@@ -76,6 +76,7 @@ func (r *RoundRobin) Read(p []byte) (n int, err error) {
 	if r.buf.Len() == 0 {
 		if len(r.rs) == 0 {
 			// Neither buffer nor readers to read from.
+			log.Println("Read: successfully read from all readers")
 			return 0, io.EOF
 		}
 		// There are still active readers.
@@ -116,6 +117,7 @@ func (r *RoundRobin) fill() error {
 			return err
 		}
 		r.rs = append(r.rs[:r.cur], r.rs[r.cur+1:]...)
+		log.Printf("fill: removed exhausted reader, readers left: %d", len(r.rs))
 	}
 	if _, err := r.buf.Write(b); err != nil {
 		return err
