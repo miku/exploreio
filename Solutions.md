@@ -856,7 +856,7 @@ Combine TimeoutReader and RoundRobinReader.
 S30
 ---
 
-All done.
+Example. A small buffer.
 
 S40
 ---
