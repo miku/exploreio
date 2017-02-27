@@ -31,6 +31,7 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -175,8 +176,11 @@ func (r *SlowAndFlaky) Read(p []byte) (n int, err error) {
 }
 
 func main() {
+	n := flag.Int("n", 100, "number of each good and flaky readers")
+	flag.Parse()
+
 	var rs []io.Reader
-	for i := 0; i < 100; i++ {
+	for i := 0; i < *n; i++ {
 		rs = append(rs, strings.NewReader(fmt.Sprintf("Reader #%d\n", i)))
 		rs = append(rs, &SlowAndFlaky{ID: i, Sleep: 1000 * time.Millisecond})
 	}

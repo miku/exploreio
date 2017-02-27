@@ -849,7 +849,9 @@ S29
 
 Example.
 
-Combine TimeoutReader and RoundRobinReader. The 
+Combine TimeoutReader and RoundRobinReader.
+
+![](https://github.com/miku/exploreio/blob/wip/casts/b5zvd60qmdsfehguqcpjzwdnk.gif)
 
 S30
 ---
