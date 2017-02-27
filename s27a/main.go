@@ -47,11 +47,13 @@ type BlackBar struct {
 	replacer *strings.Replacer
 }
 
-// New constructs a censoring reader.
-func New(r io.Reader, words []string) *BlackBar {
+// NewReader constructs a censoring reader.
+func NewReader(r io.Reader, words []string) *BlackBar {
 	return &BlackBar{r: r, replacer: makeReplacer(words)}
 }
 
+// makeReplacer replaces each word given with a blacked-out counterpart. The
+// number of bytes won't be changed.
 func makeReplacer(words []string) *strings.Replacer {
 	var s []string
 	for _, w := range words {
@@ -69,17 +71,21 @@ func makeReplacer(words []string) *strings.Replacer {
 	return strings.NewReplacer(s...)
 }
 
+// blackout erases blacklisted words.
+func (r *BlackBar) blackout(p []byte) []byte {
+	return []byte(r.replacer.Replace(string(p)))
+}
+
 // Read censors the underlying stream.
 func (r *BlackBar) Read(p []byte) (n int, err error) {
 	n, err = r.r.Read(p)
-	censored := []byte(r.replacer.Replace(string(p)))
-	copy(p, censored)
+	copy(p, r.blackout(p))
 	return
 }
 
 func main() {
 	words := []string{"Gregor", "Samsa", "travelling salesman"}
-	r := New(strings.NewReader(s), words)
+	r := NewReader(strings.NewReader(s), words)
 	if _, err := io.Copy(os.Stdout, r); err != nil {
 		log.Fatal(err)
 	}

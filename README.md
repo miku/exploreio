@@ -174,7 +174,7 @@ List of examples (x) and exercises
 * S14: Read into variables.
 * S15: Hello Buffer.
 * S16: Reading the output of a shell command into a buffer.
-* S17: An urgent request.
+* S17: An urgent request. (x)
 * S18a: Response bodies.
 * S18b: HTTP on the TCP level.
 * S19: An atomic file implementation. (x)
@@ -185,3 +185,6 @@ List of examples (x) and exercises
 * S24a: A counting reader.
 * S24b: A simple language guesser. (x)
 * S25: Generate data. (x)
+* S26: A slow reader. (x)
+* S27a: BlackBar censors given words in a stream. (x)
+* S27b: A reader that times out.

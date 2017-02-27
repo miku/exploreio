@@ -746,20 +746,57 @@ type EndlessStream struct {
 S26
 ---
 
-![](https://github.com/miku/exploreio/blob/wip/casts/cowmf6c23w1prceotyf54lt19.gif)
+A slow reader. It inserts a short delay between read operations.
 
----
+![](https://github.com/miku/exploreio/blob/wip/casts/cowmf6c23w1prceotyf54lt19.gif)
 
 S27a
 ----
 
-All done.
+A reader that blacks out text.
+
+```shell
+$ go run main.go
+
+One morning, when ██ █XX woke from troubled dreams, he found
+himself transformed in his bed into a horrible vermin.  He lay on
+...
+```
+
+We use a [strings.Replacer](https://golang.org/pkg/strings/#Replacer) to black
+out words. Since we do not use any internal buffering, we have to take some
+care not to change the number of bytes when replacing words. This is done in
+the `makeReplacer` helper function. It is also the reason, that we use both █
+and X for blacking out the text.
+
 
 S27b
 ----
 
+This is a slightly longer implementation. As usual we embed another
+[io.Reader](https://golang.org/pkg/io/#Reader). We also add a field of type
+[time.Duration](https://golang.org/pkg/time/#Duration) to configure the
+timeout.
+
 ```go
-// TODO: Implement a reader that times out after a certain a given timeout. 19 lines.
+// TimeoutReader times out, if read takes too long. https://github.com/golang/go/wiki/Timeouts
+type TimeoutReader struct {
+	r       io.Reader
+	timeout time.Duration
+}
+```
+
+An idiomatic way to implement timeouts can be found in the [Go
+Wiki](https://github.com/golang/go/wiki/Timeouts). The idea is to use buffered
+channel, start a goroutine with operation to be performed and then select
+between two channels: one for the timeout and one for the result of the
+operation.
+
+We use an auxiliary `readResult` struct for passing the result of a read
+operation between goroutines.
+
+```go
+// TODO: Implement a reader that times out after a certain a given timeout (21 lines).
 type readResult struct {
 	b   []byte
 	err error
@@ -783,6 +820,13 @@ func (r *TimeoutReader) Read(p []byte) (n int, err error) {
 	}
 }
 ```
+
+If the read finishes in time, we return the number of bytes read and the
+error, which might not be nil. If Read takes too long, we return a custom
+`ErrTimeout`.
+
+The buffered channel allows the goroutine to send a result into. It does not
+block on send and therefore will be able to finish, even after a timeout.
 
 S28
 ---
