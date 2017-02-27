@@ -7,12 +7,11 @@
 //     1
 //     2
 //     3
-//     4
-//     5
-//     ...
-//     97
-//     98
-//     99
+//     0
+//     1
+//     2
+//     3
+//
 package main
 
 import (
@@ -38,6 +37,7 @@ type RoundRobin struct {
 func NewReader(rs ...io.Reader) *RoundRobin {
 	rr := &RoundRobin{delim: '\n'}
 	for _, r := range rs {
+		// We use a bufio.Reader, so we can use r.ReadBytes later.
 		rr.rs = append(rr.rs, bufio.NewReader(r))
 	}
 	return rr
@@ -56,7 +56,8 @@ func (r *RoundRobin) Read(p []byte) (n int, err error) {
 			return 0, err
 		}
 	}
-	b, err := limitBytes(&r.buf, int64(len(p)))
+	// Read at most len(p) bytes from the internal buffer. Fewer is ok, too.
+	b, err := ioutil.ReadAll(io.LimitReader(&r.buf, int64(len(p))))
 	if err != nil {
 		return len(b), err
 	}
@@ -67,34 +68,35 @@ func (r *RoundRobin) Read(p []byte) (n int, err error) {
 // fill fills the buffer that will be drained by Read.
 func (r *RoundRobin) fill() error {
 	if r.buf.Len() > 0 {
+		// If the buffer is not empty yet, there is no need to fill it up.
 		return nil
 	}
+	// Read from the current reader until we hit the delimiter.
 	b, err := r.rs[r.cur].ReadBytes(r.delim)
 	if err != nil {
 		if err != io.EOF {
+			// An error occured and it's not EOF, report.
 			return err
 		}
+		// Remove the exhausted reader from the list of readers
+		// (https://github.com/golang/go/wiki/SliceTricks).
 		r.rs = append(r.rs[:r.cur], r.rs[r.cur+1:]...)
 	}
+	// Writer bytes into the internal buffer.
 	if _, err := r.buf.Write(b); err != nil {
 		return err
 	}
+	// Move reader index to the next reader.
 	if len(r.rs) > 0 {
 		r.cur = (r.cur + 1) % len(r.rs)
 	}
 	return nil
 }
 
-// limitBytes reads at most n bytes from reader and returns them
-func limitBytes(r io.Reader, n int64) ([]byte, error) {
-	lr := io.LimitReader(r, n)
-	return ioutil.ReadAll(lr)
-}
-
 func main() {
 	var rs []io.Reader
-	for i := 0; i < 100; i++ {
-		rs = append(rs, strings.NewReader(fmt.Sprintf("%d\n", i)))
+	for i := 0; i < 4; i++ {
+		rs = append(rs, strings.NewReader(fmt.Sprintf("reader #%d\nreader #%d\n", i, i)))
 	}
 	rr := NewReader(rs...)
 	if _, err := io.Copy(os.Stdout, rr); err != nil {

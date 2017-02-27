@@ -831,7 +831,18 @@ block on send and therefore will be able to finish, even after a timeout.
 S28
 ---
 
-All done.
+Example.
+
+The [round-robin](https://en.wikipedia.org/wiki/Round-robin) MultiReader is
+similar to the [io.MultiReader](https://golang.org/pkg/io/#MultiReader), but
+instead of reading each reader until EOF, the round-robin version suspends
+reading after encountering a newline (or other delimiter) and switches to the
+next reader. We can read from many readers, and even if the readers are
+endless, we get a single stream which consists of a blend of values from all
+readers (as long, as the delimiter appears regularly in the streams).
+
+The key to the implementation is (again) an internal buffer to decouple
+production and consumption.
 
 S29
 ---

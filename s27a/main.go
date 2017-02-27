@@ -1,4 +1,4 @@
-// S27a: BlackBar censors given words in stream.
+// S27a: BlackBar censors given words in a stream.
 package main
 
 import (
