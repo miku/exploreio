@@ -1,5 +1,7 @@
 // S28: Round robin multi-reader.
-
+//
+// OUTPUT:
+//
 //     $ go run main.go
 //     0
 //     1
@@ -24,16 +26,16 @@ import (
 	"strings"
 )
 
-// RoundRobin reads from readers round robin until all are exhausted.
+// RoundRobin reads from readers round robin until all readers are exhausted.
 type RoundRobin struct {
-	rs    []*bufio.Reader
-	delim byte
-	cur   int
-	buf   bytes.Buffer
+	rs    []*bufio.Reader // the readers
+	delim byte            // delimiter on which to stop reading, e.g. a newline
+	cur   int             // index of currently active reader
+	buf   bytes.Buffer    // internal buffer
 }
 
-// New creates a new reader.
-func New(rs ...io.Reader) *RoundRobin {
+// NewReader creates a new reader. We use a newline as a delimiter by default.
+func NewReader(rs ...io.Reader) *RoundRobin {
 	rr := &RoundRobin{delim: '\n'}
 	for _, r := range rs {
 		rr.rs = append(rr.rs, bufio.NewReader(r))
@@ -41,7 +43,8 @@ func New(rs ...io.Reader) *RoundRobin {
 	return rr
 }
 
-// Read reads from the current reader until delim or EOF is reached. If it's EOF, remove the reader for the list.
+// Read reads from the current reader until delim or EOF is reached. If it's EOF,
+// remove the reader for the list.
 func (r *RoundRobin) Read(p []byte) (n int, err error) {
 	if r.buf.Len() == 0 {
 		if len(r.rs) == 0 {
@@ -93,7 +96,7 @@ func main() {
 	for i := 0; i < 100; i++ {
 		rs = append(rs, strings.NewReader(fmt.Sprintf("%d\n", i)))
 	}
-	rr := New(rs...)
+	rr := NewReader(rs...)
 	if _, err := io.Copy(os.Stdout, rr); err != nil {
 		log.Fatal(err)
 	}
