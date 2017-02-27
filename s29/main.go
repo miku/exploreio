@@ -86,13 +86,13 @@ func (r *RoundRobin) Read(p []byte) (n int, err error) {
 			}
 			i++
 			if err := r.fill(); err != nil {
-				if err == ErrTimeout {
-					// Switch to next reader.
-					log.Printf("retrying #%d ...", r.cur)
-					r.cur = (r.cur + 1) % len(r.rs)
-					continue
+				if err != ErrTimeout {
+					return 0, err
 				}
-				return 0, err
+				// Timeout: Switch to next reader.
+				log.Printf("switching to next reader ...")
+				r.cur = (r.cur + 1) % len(r.rs)
+				continue
 			}
 			break
 		}
@@ -160,6 +160,7 @@ func (r *TimeoutReader) Read(p []byte) (n int, err error) {
 
 // SlowAndFlaky is a sleepy, flaky reader.
 type SlowAndFlaky struct {
+	ID    int
 	Sleep time.Duration
 }
 
@@ -167,15 +168,15 @@ func (r *SlowAndFlaky) Read(p []byte) (n int, err error) {
 	if rand.Float64() > 0.5 {
 		time.Sleep(r.Sleep)
 	}
-	copy(p, []byte{0x7a, 0x7a, 0x7a, 0x7a, 0x0a})
+	copy(p, []byte(fmt.Sprintf("SlowAndFlaky #%d\n", r.ID)))
 	return len(p), io.EOF
 }
 
 func main() {
 	var rs []io.Reader
 	for i := 0; i < 100; i++ {
-		rs = append(rs, strings.NewReader(fmt.Sprintf("%d\n", i)))
-		rs = append(rs, &SlowAndFlaky{Sleep: 1000 * time.Millisecond})
+		rs = append(rs, strings.NewReader(fmt.Sprintf("Reader #%d\n", i)))
+		rs = append(rs, &SlowAndFlaky{ID: i, Sleep: 1000 * time.Millisecond})
 	}
 	rr := NewRoundRobinReader(rs...)
 	if _, err := io.Copy(os.Stdout, rr); err != nil {
