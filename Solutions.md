@@ -847,7 +847,9 @@ production and consumption.
 S29
 ---
 
-All done.
+Example.
+
+Combine TimeoutReader and RoundRobinReader. The 
 
 S30
 ---

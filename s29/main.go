@@ -35,14 +35,23 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
 	"time"
 )
 
-const DefaultTimeout = 100 * time.Millisecond
+const (
+	// DefaultTimeout for the a reader.
+	DefaultTimeout = 100 * time.Millisecond
 
-// RoundRobin reads from readers round robin until all are exhausted.
+	// DefaultMaxRetry is default number of read that may fail in a row.
+	DefaultMaxRetry = 3
+)
+
+// RoundRobin reads from readers round robin until all are exhausted. If a reader
+// does not respond in time, if will be retried a given number of times. If this reader
+// encounters maxRetry failed reads in a row, it will finally give up.
 type RoundRobin struct {
 	rs       []*bufio.Reader
 	delim    byte
@@ -51,9 +60,9 @@ type RoundRobin struct {
 	maxRetry int
 }
 
-// New creates a new reader.
-func New(rs ...io.Reader) *RoundRobin {
-	rr := &RoundRobin{delim: '\n', maxRetry: 10}
+// NewRoundRobinReader creates a new reader.
+func NewRoundRobinReader(rs ...io.Reader) *RoundRobin {
+	rr := &RoundRobin{delim: '\n', maxRetry: DefaultMaxRetry}
 	for _, r := range rs {
 		tr := &TimeoutReader{r: r, timeout: DefaultTimeout}
 		rr.rs = append(rr.rs, bufio.NewReader(tr))
@@ -61,7 +70,8 @@ func New(rs ...io.Reader) *RoundRobin {
 	return rr
 }
 
-// Read reads from the current reader until delim or EOF is reached. If it's EOF, remove the reader for the list.
+// Read reads from the current reader until delim or EOF is reached. If it's EOF,
+// remove the reader for the list.
 func (r *RoundRobin) Read(p []byte) (n int, err error) {
 	if r.buf.Len() == 0 {
 		if len(r.rs) == 0 {
@@ -72,13 +82,13 @@ func (r *RoundRobin) Read(p []byte) (n int, err error) {
 		var i int
 		for {
 			if i == r.maxRetry {
-				return 0, fmt.Errorf("max retries exceeded")
+				return 0, fmt.Errorf("max retries (%d) exceeded", r.maxRetry)
 			}
 			i++
 			if err := r.fill(); err != nil {
 				if err == ErrTimeout {
-					// switch to next reader
-					log.Println("retrying ")
+					// Switch to next reader.
+					log.Printf("retrying #%d ...", r.cur)
 					r.cur = (r.cur + 1) % len(r.rs)
 					continue
 				}
@@ -87,7 +97,7 @@ func (r *RoundRobin) Read(p []byte) (n int, err error) {
 			break
 		}
 	}
-	b, err := limitBytes(&r.buf, int64(len(p)))
+	b, err := ioutil.ReadAll(io.LimitReader(&r.buf, int64(len(p))))
 	if err != nil {
 		return len(b), err
 	}
@@ -114,12 +124,6 @@ func (r *RoundRobin) fill() error {
 		r.cur = (r.cur + 1) % len(r.rs)
 	}
 	return nil
-}
-
-// limitBytes reads at most n bytes from reader and returns them
-func limitBytes(r io.Reader, n int64) ([]byte, error) {
-	lr := io.LimitReader(r, n)
-	return ioutil.ReadAll(lr)
 }
 
 // ErrTimeout signals a timeout.
@@ -154,13 +158,15 @@ func (r *TimeoutReader) Read(p []byte) (n int, err error) {
 	}
 }
 
-// Slow is a sleepy reader.
-type Slow struct {
+// SlowAndFlaky is a sleepy, flaky reader.
+type SlowAndFlaky struct {
 	Sleep time.Duration
 }
 
-func (r *Slow) Read(p []byte) (n int, err error) {
-	time.Sleep(r.Sleep)
+func (r *SlowAndFlaky) Read(p []byte) (n int, err error) {
+	if rand.Float64() > 0.5 {
+		time.Sleep(r.Sleep)
+	}
 	copy(p, []byte{0x7a, 0x7a, 0x7a, 0x7a, 0x0a})
 	return len(p), io.EOF
 }
@@ -169,9 +175,9 @@ func main() {
 	var rs []io.Reader
 	for i := 0; i < 100; i++ {
 		rs = append(rs, strings.NewReader(fmt.Sprintf("%d\n", i)))
-		rs = append(rs, &Slow{Sleep: 1000 * time.Millisecond})
+		rs = append(rs, &SlowAndFlaky{Sleep: 1000 * time.Millisecond})
 	}
-	rr := New(rs...)
+	rr := NewRoundRobinReader(rs...)
 	if _, err := io.Copy(os.Stdout, rr); err != nil {
 		log.Fatal(err)
 	}

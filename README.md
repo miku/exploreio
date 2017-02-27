@@ -188,4 +188,5 @@ List of examples (x) and exercises
 * S26: A slow reader. (x)
 * S27a: BlackBar censors given words in a stream. (x)
 * S27b: A reader that times out.
-* S28: Round robin multi-reader. (x)
+* S28: Round robin multireader. (x)
+* S29: Round robin multireader, that can handle broken readers. (x)
