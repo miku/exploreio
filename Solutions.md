@@ -849,9 +849,33 @@ S29
 
 Example.
 
-Combine TimeoutReader and RoundRobinReader.
+Combine TimeoutReader and RoundRobinReader. We read round robin from a number
+of readers. To test the timeout, we will create a SlowAndFlaky reader, that is
+one, that is *sometimes* too slow. This helps us simulate brokenness - a
+component, that may work.
 
-![](https://github.com/miku/exploreio/blob/wip/casts/b5zvd60qmdsfehguqcpjzwdnk.gif)
+We set a limit on the number of attempts that should be made to retry another
+reader. When we start creating readers in main, we create *good* string readers
+and *bad* SlowAndFlaky readers together. As long as there is enough to read,
+all is fine. Once all good readers are exhasted and only the bad ones remain,
+we get closer to the retry limit. If we use enough workers, we will hit the
+retry limit and the reader will finally fail, saying: *max retries exceeded*.
+
+Short [asciicast](https://github.com/miku/exploreio/blob/wip/casts/b5zvd60qmdsfehguqcpjzwdnk.gif).
+
+It is often necessary to plan for failure. Not all errors are equal. In this
+example, we see an example of a gradual error handling: we assert the system is
+ok as long as we can read from any reader. We even allow a number of errors.
+Only when we exceed a certain limit, we finally report an error.
+
+The first fallacy of distributed computing is: the network is reliable. You can
+imagine many scenarios, where you want gradual error handling: Maybe you don't
+want to give up on fetching an URL just after a first error. Maybe you have an
+abstraction over multiple data locations and you will not stop, if one is not
+responding.
+
+The key is to identify errors, that can be recovered from locally and errors
+that should be passed on.
 
 S30
 ---
