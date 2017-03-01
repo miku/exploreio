@@ -748,7 +748,7 @@ S26
 
 A slow reader. It inserts a short delay between read operations.
 
-![](https://github.com/miku/exploreio/blob/wip/casts/cowmf6c23w1prceotyf54lt19.gif)
+* Short [asciicast](https://raw.githubusercontent.com/miku/exploreio/wip/casts/cowmf6c23w1prceotyf54lt19.gif).
 
 S27a
 ----
@@ -861,7 +861,7 @@ all is fine. Once all good readers are exhasted and only the bad ones remain,
 we get closer to the retry limit. If we use enough workers, we will hit the
 retry limit and the reader will finally fail, saying: *max retries exceeded*.
 
-Short [asciicast](https://github.com/miku/exploreio/blob/wip/casts/b5zvd60qmdsfehguqcpjzwdnk.gif).
+Short [asciicast](https://raw.githubusercontent.com/miku/exploreio/wip/casts/b5zvd60qmdsfehguqcpjzwdnk.gif).
 
 It is often necessary to plan for failure. Not all errors are equal. In this
 example, we see an example of a gradual error handling: we assert the system is
