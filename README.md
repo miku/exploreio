@@ -1,24 +1,42 @@
-Explore Golang IO
-=================
+Exploring Readers and Writers
+=============================
 
-Explore IO with Golang, workshop at [Golab](http://golab.io) 2017.
+A tour though IO in Golang, workshop at [Golab](http://golab.io) 2017.
 
-The aim of this workshop is to get more familiar with two of the more important
-interfaces in the standard library:
-[io.Reader](https://golang.org/pkg/io/#Reader) and
-[io.Writer](https://golang.org/pkg/io/#Writer). These interfaces help to decompose
-functionality for stream oriented processing.
+The aim of this workshop is to see two important interfaces of the standard
+library in action: [io.Reader](https://golang.org/pkg/io/#Reader) and
+[io.Writer](https://golang.org/pkg/io/#Writer). There are numerous
+implementations of these inferfaces.
 
-Where are these interfaces used? Answer: in many places. You can read from a
-file, a network connection, an HTTP reponse body, compressed input, you can
-read endlessly from an artificial data source, like a stream of zeros or random
-bytes. Image, JSON or XML decoders takes can work with readers. You can write
-to files, network connections, hashing algorithms or standard output. You can
-read and write to memory buffers.
+Where are these interfaces used? In short: everywhere. You can read from a
+file, a network connection, an HTTP reponse body, compressed data, you can read
+endlessly from an artificial source or a stream of zeros or random noise.
+Image, JSON, XML and other decoders work with readers. You can write to
+files, network connections, hashing algorithms or standard output. You can read
+and write to memory buffers.
 
 The use cases are broad and there is a chance, that a custom implementation of
 a reader or writer in your own project will simplify overall program design by
-adhering to a well known interface.
+adhering to these widely used interface.
+
+Slides
+------
+
+The [slides](https://github.com/miku/exploreio/blob/master/Slides.md) contain some
+introduction and context. Here are a few resources, that are mentioned in the slides:
+
+* The talk, that inspired this workshop: [Go
+Proverbs](https://youtu.be/PAAkCSZUG1c?t=5m18s) at Gopherfest 2015.
+* A short statement from Ken Thompson on [what a file is in
+Unix](https://youtu.be/tc4ROCJYbm0?t=12m55s), from an 1982 AT&T documentary.
+* The mantra [everything is a
+file](https://en.wikipedia.org/wiki/Everything_is_a_file) remains an amazing
+concept; it has been reformulated as [everything is a stream of
+bytes](http://yarchive.net/comp/linux/everything_is_file.html).
+* *Pipes and Filters* are an important [architectural
+pattern](https://john.cs.olemiss.edu/~hcc/csci581oo/notes/pipes.html).
+* The whole [Go Tour](https://tour.golang.org) is amazing, among the many
+examples, there is also a [rot13Reader](https://tour.golang.org/methods/23).
 
 There are some
 [slides](https://github.com/miku/exploreio/blob/master/Slides.pdf), which
@@ -34,7 +52,7 @@ Prerequisites
 -------------
 
 To keep the amount of preparation at a minimum, all you'll need is a working
-[Go installation](https://golang.org/doc/install). Exercise programs will be
+[Go installation](https://golang.org/doc/install). The example programs will be
 mostly self-contained.
 
 Here is all you need to do to get started. Clone this repository:
@@ -51,14 +69,14 @@ $ go run check/main.go
 Hello Gopher!
 ```
 
-If this worked you are all set.
+If this worked, that congratulations: you are all set.
 
 From simple to complex: one quiz at a time
 ------------------------------------------
 
-The workshop uses the format of a *quiz* to introduce various concepts. Each
-directory (s00, s01, ...) contains one exercise. There is one `main.go` file
-for each exercise. There might be auxiliary files in the exercise directory.
+This workshop uses the format of a *quiz* to introduce various concepts. Each
+directory (s00, s01, ...) contains one exercise or example. There is always one
+executable `main.go`. There might be auxiliary files in the directory.
 
 Inside `main.go` you find code and comments. Among the comment lines are two
 special kinds of comments, marked
@@ -93,7 +111,7 @@ type record struct {
 }
 
 func main() {
-	// TODO: Unmarshal from Stdin into a record struct (4 lines).
+	// TODO: Unmarshal from standard input into a record struct (4 lines).
 	// ...
 	// ...
 	// ...
@@ -124,7 +142,7 @@ parameters, or like here, you need to pipe something into the script:
 
 ```
 
-The other section is marked TODO:
+The other section is marked *TODO*:
 
 ```go
 	// TODO: Unmarshal from Stdin into a record struct (4 lines).
@@ -136,8 +154,8 @@ The other section is marked TODO:
 
 It contains a short instruction of what should be accomplished in that
 exercise. In parentheses you will find a hint, as for how many lines are needed
-in idiomatic Go to implement the task. It is just a hint, there are often various ways to get to 
-the same result. A variation in the implementation can be good occasion for a discussion.
+(in mostly idiomatic Go) to implement the task. It is just a hint, there are
+often various ways to get to the same result.
 
 If not noted otherwise, all tasks should be implemented with basic error
 handling, that is: if any method returns an error, you should check it.
@@ -167,25 +185,29 @@ reviewing your code, move to another task or lookup the
 Solutions
 ---------
 
-Solutions to all exercises can be found in
-[Solutions.md](https://github.com/miku/exploreio/blob/master/Solutions.md).
-Each exercise has a solution and potentially a short explanation that
-comes with it.
-
-The explanations strive for conciseness. I hope the aim to be brief does not
-make the comments too cryptic.
+Solutions and comments to all exercises can be found in
+[Solutions.md](https://github.com/miku/exploreio/blob/master/Solutions.md). The
+explanations strive for conciseness. I hope the aim to be brief does not make
+the comments too cryptic.
 
 To the instructor
 -----------------
 
-If you are using this material for an own course, maybe you like a setup like this:
+If you are using part or all of this material for a course, maybe you like a
+setup like this:
 
 * Have your laptop open as you show the exercises on a screen. Explain what is required and let people work on the TODOs.
 * Have a separate screen (tablet or other device) open with the solutions manual ([available as PDF](https://github.com/miku/exploreio/blob/master/Solutions.pdf)),
 so you can jump in with a hint or solution.
+* Most of the examples are self contained; it should be easy to skip exercises,
+if they are to easy or there's too little time.
 
 List of exercises and examples (x)
 ----------------------------------
+
+Example marked with an (x) do not contain a TODO. The are here for
+illustration. There are comments in the code and some more context in the
+solutions.
 
 * [S00](https://github.com/miku/exploreio/tree/master/s00): A file is a reader.
 * [S01](https://github.com/miku/exploreio/tree/master/s01): Get bytes from a reader.
@@ -222,3 +244,14 @@ List of exercises and examples (x)
 * [S28](https://github.com/miku/exploreio/tree/master/s28): Round robin multireader. (x)
 * [S29](https://github.com/miku/exploreio/tree/master/s29): Round robin multireader, that can handle broken readers. (x)
 * [S30](https://github.com/miku/exploreio/tree/master/s30): A small buffer.
+
+Feedback
+--------
+
+I prepared this workshop, because I was curious about these interfaces myself.
+This is a kind of ongoing project as I plan to add more implementations of
+readers and writers as I encounter them.
+
+For any idea, correction or extension, please file an issue or send a pull
+request or patch. You can also contact me at
+[martin.czygan@gmail.com](mailto:martin.czygan@gmail.com).
