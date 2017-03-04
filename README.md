@@ -38,10 +38,6 @@ pattern](https://john.cs.olemiss.edu/~hcc/csci581oo/notes/pipes.html).
 * The whole [Go Tour](https://tour.golang.org) is amazing, among the many
 examples, there is also a [rot13Reader](https://tour.golang.org/methods/23).
 
-There are some
-[slides](https://github.com/miku/exploreio/blob/master/Slides.pdf), which
-introduce and motivate the topic.
-
 Duration
 --------
 
