@@ -37,6 +37,8 @@ bytes](http://yarchive.net/comp/linux/everything_is_file.html).
 pattern](https://john.cs.olemiss.edu/~hcc/csci581oo/notes/pipes.html).
 * The whole [Go Tour](https://tour.golang.org) is amazing, among the many
 examples, there is also a [rot13Reader](https://tour.golang.org/methods/23).
+* The Go documentation is really nice, the [package
+io](https://golang.org/pkg/io/) docs contain a number of examples as well.
 
 Duration
 --------
