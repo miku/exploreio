@@ -880,29 +880,52 @@ that should be passed on.
 S30
 ---
 
-Example. A small buffer.
+The [bytes](https://golang.org/pkg/bytes/) package already provides a versatile
+and performant implementation of a
+[buffer](https://golang.org/pkg/bytes/#Buffer).
 
-S40
----
+However, it is not too complicated to create a simple version of a buffer yourself.
 
-All done.
+It can be as simples as a byte slice combined with two indices for the current read and write positions:
 
-S41
----
+```go
+// Buffer is a minimal implementation of a variable size byte slice one can read
+// from and write into.
+type Buffer struct {
+	b    []byte
+	i, j int
+}
+```
 
-All done.
+When we write to the buffer, we increment j, when we read, i. A read attempt on
+an exhausted buffer should return io.EOF.
 
-S42
----
+```go
+// Questions:
+//
+// (1) This implementation suffers from a small but serious flaw. Can you spot it?
+// (2) Can you implement a more efficient version?
+```
 
-All done.
+The flaw is that the current implementation of the buffer does not get rid of
+memory it does not need any more.
 
-S43
----
+```go
+// Read reads the current buffer.
+func (b *Buffer) Read(p []byte) (n int, err error) {
+	sz := len(b.b) - b.i
+	if sz > len(p) {
+		sz = len(p)
+	} else {
+		err = io.EOF
+	}
+	copy(p, b.b[b.i:b.i+sz])
+	b.i += sz
+	return sz, err
+}
+```
 
-All done.
-
-S44
----
-
-All done.
+We read the correct piece of the internal byte slice, but we do not shrink the
+byte slice after we read from it. We only move pointers. A solution would be to
+read from the byte slice and to alter the read index *and* to truncate the byte
+slice.

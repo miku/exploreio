@@ -33,14 +33,25 @@ type Numbers struct {
 }
 
 func (r *Numbers) Read(p []byte) (n int, err error) {
+	// If we do not use a mutex, we get the following panic:
+	//
+	// $ go run main.go
+	// 0
+	// 1
+	// ...
+	// 7
+	// panic: bytes.Buffer: truncation out of range [recovered]
+	// 	panic: bytes.Buffer: truncation out of range
 	r.mu.Lock()
 	defer r.mu.Unlock()
+
 	if r.buf.Len() == 0 {
 		if err := r.fill(); err != nil {
 			return 0, err
 		}
 	}
-	b, err := limitBytes(&r.buf, int64(len(p)))
+
+	b, err := ioutil.ReadAll(io.LimitReader(&r.buf, int64(len(p))))
 	if err != nil {
 		return len(b), err
 	}
@@ -57,12 +68,6 @@ func (r *Numbers) fill() error {
 	}
 	atomic.AddInt64(&r.N, 1)
 	return nil
-}
-
-// limitBytes reads at most n bytes from reader and returns them
-func limitBytes(r io.Reader, n int64) ([]byte, error) {
-	lr := io.LimitReader(r, n)
-	return ioutil.ReadAll(lr)
 }
 
 func run(r io.Reader) {

@@ -1,14 +1,15 @@
 // S42: Callbacks.
 //
+// OUTPUT:
 //
 //     $ cat main.go | go run main.go
 //     ...
 //     package main
 //
 //     import (
-//     	"io"
-//     ...
-//     	}
+//       "io"
+//       ...
+//       }
 //     }
 //     2017/01/21 14:10:28 done reading
 

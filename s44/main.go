@@ -1,5 +1,7 @@
 // S44: A flaky reader that flips bytes.
 //
+// OUTPUT:
+//
 //     $ go run main.go
 //     Hello World!
 //     Hello World!
@@ -17,12 +19,14 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
+	"log"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
 
+// Flaky flips each byte with a given probability.
 type Flaky struct {
 	r    io.Reader
 	prob float64
@@ -44,8 +48,14 @@ func (r Flaky) Read(p []byte) (int, error) {
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < 10; i++ {
-		flaky := &Flaky{r: strings.NewReader("Hello World!"), prob: 0.1}
-		b, _ := ioutil.ReadAll(flaky)
-		fmt.Println(string(b))
+		// Flip every tenth byte on average.
+		flaky := &Flaky{
+			r:    strings.NewReader("Hello World!"),
+			prob: 0.1,
+		}
+		if _, err := io.Copy(os.Stdout, flaky); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println()
 	}
 }

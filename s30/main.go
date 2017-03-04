@@ -1,9 +1,15 @@
 // S30: A small buffer.
 //
-// $ go run main.go
+// OUTPUT:
 //
-// ░♡░┳┣I░A░Ⓝ░К▒❀▒УOЦ░♡░ for your attention!
+//     $ echo -n "Hello Buffer" | go run main.go
+//     2017/03/04 13:48:22 12 bytes read
+//     Hello Buffer
 //
+// Questions:
+//
+// (1) This implementation suffers from a small but serious flaw. Can you spot it?
+// (2) Can you implement a more efficient version?
 package main
 
 import (

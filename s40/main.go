@@ -2,6 +2,8 @@
 //
 // Example from: https://github.com/golang/go/blob/2815045a50862276082048714337f95c46e98605/src/net/http/httputil/dump.go#L26
 //
+// OUTPUT:
+//
 //     $ go run main.go
 //     Hello Gophers
 //     Hello Gophers

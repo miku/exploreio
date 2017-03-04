@@ -190,3 +190,4 @@ List of examples (x) and exercises
 * S27b: A reader that times out.
 * S28: Round robin multireader. (x)
 * S29: Round robin multireader, that can handle broken readers. (x)
+* S30: A small buffer.
