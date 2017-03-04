@@ -1,4 +1,4 @@
-// Can we read concurrently from a reader?
+// S41: Can we read concurrently from a reader?
 //
 //     $ go run main.go  | head -10
 //     0

@@ -20,10 +20,8 @@
 package main
 
 import (
-	"io"
 	"log"
 	"net"
-	"os"
 )
 
 func main() {
@@ -32,5 +30,6 @@ func main() {
 		log.Fatal(err)
 	}
 	defer conn.Close()
-	// TODO: Send a GET request, read the reponse and print it to standard output (6 lines).
+	// TODO: Send a GET request, read the reponse and print it
+	//       to standard output (6 lines).
 }

@@ -1,4 +1,4 @@
-// S43: Like /dev/zero
+// S43: Like /dev/zero.
 //
 // OUTPUT:
 //

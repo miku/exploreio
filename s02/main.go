@@ -19,7 +19,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// TODO: Write contents of the file to the standard output, without using a byte slice (3 lines).
+	// TODO: Write contents of the file to the standard output,
+	// without using a byte slice (3 lines).
 	// ...
 	// ...
 	// ...

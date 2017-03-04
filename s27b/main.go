@@ -27,7 +27,8 @@ type TimeoutReader struct {
 	timeout time.Duration
 }
 
-// TODO: Implement a reader that times out after a certain a given timeout (21 lines).
+// TODO: Implement a reader that times out after
+//       a certain a given timeout (21 lines).
 // ...
 // ...
 // ...

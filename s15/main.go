@@ -19,10 +19,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
-	"io"
 	"log"
-	"os"
 )
 
 func main() {
@@ -30,7 +27,8 @@ func main() {
 	if _, err := buf.WriteString("abc.xyz"); err != nil {
 		log.Fatal(err)
 	}
-	// TODO: Read one byte at a time from the buffer and print the hex value on stdout (10 lines).
+	// TODO: Read one byte at a time from the buffer
+	//       and print the hex value on stdout (10 lines).
 	// ...
 	// ...
 	// ...

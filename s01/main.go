@@ -21,8 +21,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// TODO: We don't need to loop manually, there is a helper function for that.
-	// TODO: Replace the next 10 lines with 5 that do the same.
+	// TODO: We don't need to loop manually, there is a helper
+	//       function for that. Replace the next 10 lines
+	//       with 5 lines that do the same.
 	var contents []byte
 	for {
 		b := make([]byte, 8)

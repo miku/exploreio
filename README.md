@@ -189,7 +189,7 @@ List of exercises and examples (x)
 * [S08](https://github.com/miku/exploreio/tree/master/s08): Strings can be readers, io.ReadFull.
 * [S09](https://github.com/miku/exploreio/tree/master/s09): Random reader and Base64 encoder.
 * [S10](https://github.com/miku/exploreio/tree/master/s10): Prettify tabular data.
-* [S11](https://github.com/miku/exploreio/tree/master/s11): Read a file, line by line.
+* [S11](https://github.com/miku/exploreio/tree/master/s11): Read a file, line by line. (x)
 * [S12](https://github.com/miku/exploreio/tree/master/s12): Read from multiple readers in turn.
 * [S13](https://github.com/miku/exploreio/tree/master/s13): Write to more than one writer at once.
 * [S14](https://github.com/miku/exploreio/tree/master/s14): Read into variables.

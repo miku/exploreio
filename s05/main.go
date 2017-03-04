@@ -13,9 +13,7 @@
 package main
 
 import (
-	"image"
 	_ "image/gif" // register gif decoder
-	"image/jpeg"
 	_ "image/png" // register png decoder
 	"io"
 	"log"
@@ -24,8 +22,10 @@ import (
 
 // toJPG converts a GIF or PNG image int JPEG.
 func toJPG(r io.Reader, w io.Writer) error {
-	// TODO: Decode the image and encode it to JPEG, write it to the given writer (5 lines).
-	// TODO: Hint: Utilize methods taking io.Reader or io.Writer in https://golang.org/pkg/image/.
+	// TODO: Decode the image and encode it to JPEG, write it
+	//       to the given writer (5 lines).
+	// Hint: Utilize methods taking io.Reader or io.Writer
+	//       in https://golang.org/pkg/image/.
 	// ...
 	// ...
 	// ...

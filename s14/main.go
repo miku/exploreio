@@ -18,7 +18,8 @@ func main() {
 		f float64
 		s string
 	)
-	// TODO: Read an int, a float and a string from standard input (3 lines).
+	// TODO: Read an int, a float and a string from
+	//       standard input (3 lines).
 	// ...
 	// ...
 	// ...

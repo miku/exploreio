@@ -12,7 +12,8 @@ import (
 	"os"
 )
 
-// TODO: Implement type Discard, which throws away everything that is written to it (4 lines).
+// TODO: Implement type Discard, which throws away
+//       everything that is written to it (4 lines).
 // ...
 
 // ...

@@ -11,8 +11,6 @@
 package main
 
 import (
-	"io"
-	"log"
 	"os"
 	"text/tabwriter"
 )
@@ -21,7 +19,8 @@ func main() {
 	// https://golang.org/pkg/text/tabwriter/#NewWriter
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight|tabwriter.Debug)
 
-	// TODO: Read tabulated data from standard in and write it to the tabwriter (3 lines).
+	// TODO: Read tabulated data from standard in
+	//       and write it to the tabwriter (3 lines).
 	// ...
 	// ...
 	// ...

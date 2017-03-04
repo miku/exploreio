@@ -5,7 +5,6 @@
 package main
 
 import (
-	"bytes"
 	"io"
 	"log"
 	"os"
@@ -16,7 +15,8 @@ type UpperReader struct {
 	r io.Reader
 }
 
-// TODO: Implement UpperReader, a reader that converts all Unicode letter mapped to their upper case (6 lines).
+// TODO: Implement UpperReader, a reader that converts
+//       all Unicode letter mapped to their upper case (6 lines).
 func (r *UpperReader) Read(p []byte) (n int, err error) {
 	// ...
 	// ...

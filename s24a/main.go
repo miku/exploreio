@@ -12,11 +12,13 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"sync/atomic"
 )
 
-// TODO: Implement a reader that counts the total number of bytes read (12 lines).
-// TODO: It should have a Count() uint64 method, that returns the number of bytes read so far.
+// TODO: Implement a reader that counts the total
+//       number of bytes read.
+//       It should have a Count() uint64 method,
+//       that returns the number of bytes read so far.
+//       (12 lines).
 // ...
 // ...
 // ...

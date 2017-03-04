@@ -23,7 +23,8 @@ import (
 	"os"
 )
 
-// TODO: Change a single character in this program so the complete file is read and printed.
+// TODO: Change a single character in this program so the complete
+//       file is read and printed.
 func main() {
 	file, err := os.Open("hello.txt")
 	if err != nil {

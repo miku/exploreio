@@ -7,8 +7,10 @@
 package main
 
 func main() {
-	// TODO: Read gzip compressed input from standard input and print it to standard output,
-	// TODO: without using a byte slice (7 lines).
+
+	// TODO: Read gzip compressed data from standard input and write
+	//       to standard output, without using a byte slice (7 lines).
+	//
 	// ...
 	// ...
 	// ...
