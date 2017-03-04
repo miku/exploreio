@@ -1,10 +1,13 @@
+Solutions and comments of exercises.
+
 S00
 ---
 
 Change the length of the byte slice, from:
 
 ```go
-// TODO: Change a single character in this program so the complete file is read and printed.
+// TODO: Change a single character in this program so the complete
+//       file is read and printed.
 ...
 b := make([]byte, 11)
 ...
@@ -28,8 +31,9 @@ S01
 We can shorten these lines:
 
 ```go
-	// TODO: We don't need to loop manually, there is a helper function for that.
-	// TODO: Replace the next 10 lines with 5 that do the same.
+	// TODO: We don't need to loop manually, there is a helper
+	//       function for that. Replace the next 10 lines
+	//       with 5 lines that do the same.
 	var contents []byte
 	for {
 		b := make([]byte, 8)
@@ -79,7 +83,8 @@ S02
 Use: [io.Copy](https://golang.org/pkg/io/#Copy) and [os.Stdout](https://golang.org/pkg/os/#pkg-variables).
 
 ```go
-	// TODO: Write output to Stdout, without using a byte slice (3 lines, including error handling).
+	// TODO: Write contents of the file to the standard output,
+	//       without using a byte slice (3 lines).
 	if _, err := io.Copy(os.Stdout, file); err != nil {
 		log.Fatal(err)
 	}
@@ -113,7 +118,7 @@ Use [os.Stdout](https://golang.org/pkg/os/#pkg-variables) and [os.Stdin](https:/
 
 ```go
 	// TODO: Read input from standard input and pass it to standard output,
-	// TODO: without using a byte slice (3 lines).
+	//       without using a byte slice (3 lines).
 	if _, err := io.Copy(os.Stdout, os.Stdin); err != nil {
 		log.Fatal(err)
 	}
@@ -133,8 +138,8 @@ Use [gzip.Reader](https://golang.org/pkg/compress/gzip/#Reader).
 >  A gzip.Reader is an io.Reader that can be read to retrieve uncompressed data from a gzip-format compressed file.
 
 ```go
-	// TODO: Read gzip compressed input from standard input and print it to standard output,
-	// TODO: without using a byte slice (7 lines).
+	// TODO: Read gzip compressed data from standard input and write
+	//       to standard output, without using a byte slice (7 lines).
 	r, err := gzip.NewReader(os.Stdin)
 	if err != nil {
 		log.Fatal(err)
@@ -166,7 +171,10 @@ In turn, the concrete image subpackages implement an
 [Image](https://golang.org/pkg/image/#Image) as an argument.
 
 ```go
-	// TODO: Read the image, encode the image (5 lines).
+	// TODO: Decode the image and encode it to JPEG, write it
+	//       to the given writer (5 lines).
+	// Hint: Utilize methods taking io.Reader or io.Writer
+	//       in https://golang.org/pkg/image/.
 	img, _, err := image.Decode(r)
 	if err != nil {
 		return err
@@ -270,7 +278,8 @@ of bytes copied and an error if fewer bytes were read. The error is EOF only if
 no bytes were read.
 
 ```go
-	// TODO: Read the first 7 bytes of the string into a byte slice, then print to stdout (5 lines).
+	// TODO: Read the first 7 bytes of the string into a byte slice,
+	//       then print to stdout (5 lines).
 	b := make([]byte, 7)
 	if _, err := io.ReadFull(r, b); err != nil {
 		log.Fatal(err)
@@ -305,7 +314,8 @@ Another example for [io.Copy](https://golang.org/pkg/io/#Copy). Here, the
 destination is a writer, that prettifies tabular data.
 
 ```go
-	// TODO: Read tabulated data from standard in and write it to the tabwriter (3 lines).
+	// TODO: Read tabulated data from standard in
+	//       and write it to the tabwriter (3 lines).
 	if _, err := io.Copy(w, os.Stdin); err != nil {
 		log.Fatal(err)
 	}
@@ -322,8 +332,9 @@ S12
 You can combine any number of readers with [io.MultiReader](https://golang.org/pkg/io/#MultiReader).
 
 ```go
-	// TODO: Read from these four readers and write to standard output (4 lines).
-	rs := []io.Reader{
+		// TODO: Read from these four readers
+		//       and write to standard output (4 lines).
+		rs := []io.Reader{
 		strings.NewReader("Hello\n"),
 		strings.NewReader("Gopher\n"),
 		strings.NewReader("World\n"),
@@ -358,7 +369,8 @@ which can be considered the opposite of formatted output: They scan formatted
 text to yield values.
 
 ```go
-	// TODO: Read an int, a float and a string from standard input (3 lines).
+	// TODO: Read an int, a float and a string from
+	//       standard input (3 lines).
 	if _, err := fmt.Fscan(os.Stdin, &i, &f, &s); err != nil {
 		log.Fatal(err)
 	}
@@ -376,7 +388,8 @@ variable-sized buffer of bytes with Read and Write methods. You can a read a
 analogue.
 
 ```go
-	// TODO: Read one byte at a time from the buffer and print the hex value on stdout (10 lines).
+	// TODO: Read one byte at a time from the buffer
+	//       and print the hex value on stdout (10 lines).
 	for {
 		b, err := buf.ReadByte()
 		if err == io.EOF {
@@ -559,7 +572,8 @@ example, we can create the type in a more ad-hoc fashion - but the idea is the
 same.
 
 ```go
-// TODO: Implement UpperReader, a reader that converts all Unicode letter mapped to their upper case (6 lines).
+// TODO: Implement UpperReader, a reader that converts
+//       all Unicode letter mapped to their upper case (6 lines).
 func (r *UpperReader) Read(p []byte) (n int, err error) {
 	n, err = r.r.Read(p)
 	if err != nil {
@@ -603,7 +617,8 @@ very useful, Unix users will be reminded of the
 reasonable use cases.
 
 ```go
-// TODO: Implement type Discard, which throws away everything that is written to it (4 lines).
+// TODO: Implement type Discard, which throws away
+//       everything that is written to it (4 lines).
 type Discard struct{}
 
 func (w *Discard) Write(p []byte) (n int, err error) {
@@ -642,7 +657,8 @@ immediately before we write them to the underlying writer. We pass the return
 values of the Write directly back.
 
 ```go
-// TODO: Implement UpperWriter, a reader that converts all Unicode letter mapped to their upper case (6 lines).
+// TODO: Implement UpperWriter, a reader that converts
+//       all Unicode letter mapped to their upper case (6 lines).
 type UpperWriter struct {
 	w io.Writer
 }
@@ -659,8 +675,11 @@ This counting reader is an example of a reader, that keep track of a metric
 over time. Here, we just count the number of bytes read in total.
 
 ```go
-// TODO: Implement a reader that counts the total number of bytes read (12 lines).
-// TODO: It should have a Count() uint64 method, that returns the number of bytes read so far.
+// TODO: Implement a reader that counts the total
+//       number of bytes read.
+//       It should have a Count() uint64 method,
+//       that returns the number of bytes read so far.
+//       (12 lines).
 type CountingReader struct {
 	r     io.Reader
 	count uint64
@@ -769,7 +788,6 @@ care not to change the number of bytes when replacing words. This is done in
 the `makeReplacer` helper function. It is also the reason, that we use both █
 and X for blacking out the text.
 
-
 S27b
 ----
 
@@ -779,7 +797,8 @@ This is a slightly longer implementation. As usual we embed another
 timeout.
 
 ```go
-// TimeoutReader times out, if read takes too long. https://github.com/golang/go/wiki/Timeouts
+// TimeoutReader times out, if read takes too long.
+// https://github.com/golang/go/wiki/Timeouts
 type TimeoutReader struct {
 	r       io.Reader
 	timeout time.Duration
@@ -796,7 +815,8 @@ We use an auxiliary `readResult` struct for passing the result of a read
 operation between goroutines.
 
 ```go
-// TODO: Implement a reader that times out after a certain a given timeout (21 lines).
+// TODO: Implement a reader that times out after
+//       a certain a given timeout (21 lines).
 type readResult struct {
 	b   []byte
 	err error
@@ -903,7 +923,8 @@ an exhausted buffer should return io.EOF.
 ```go
 // Questions:
 //
-// (1) This implementation suffers from a small but serious flaw. Can you spot it?
+// (1) This implementation suffers from a small but serious flaw.
+//     Can you spot it?
 // (2) Can you implement a more efficient version?
 ```
 

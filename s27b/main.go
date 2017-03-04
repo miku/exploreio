@@ -21,7 +21,8 @@ import (
 // ErrTimeout signals a timeout.
 var ErrTimeout = errors.New("timeout")
 
-// TimeoutReader times out, if read takes too long. https://github.com/golang/go/wiki/Timeouts
+// TimeoutReader times out, if read takes too long.
+// https://github.com/golang/go/wiki/Timeouts
 type TimeoutReader struct {
 	r       io.Reader
 	timeout time.Duration
