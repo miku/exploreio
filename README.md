@@ -171,7 +171,7 @@ To the instructor
 If you are using this material for an own course, maybe you like a setup like this:
 
 * Have your laptop open as you show the exercises on a screen. Explain what is required and let people work on the TODOs.
-* Have a separate screen (tablet or other device) open with the solutions manual (available as PDF),
+* Have a separate screen (tablet or other device) open with the solutions manual ([available as PDF](https://github.com/miku/exploreio/blob/master/Solutions.pdf)),
 so you can jump in with a hint or solution.
 
 List of exercises and examples (x)
