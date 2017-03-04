@@ -4,21 +4,21 @@ Explore Golang IO
 Explore IO with Golang, workshop at [Golab](http://golab.io) 2017.
 
 The aim of this workshop is to get more familiar with two of the more important
-interfaces in the standard library,
+interfaces in the standard library:
 [io.Reader](https://golang.org/pkg/io/#Reader) and
 [io.Writer](https://golang.org/pkg/io/#Writer). These interfaces help to decompose
 functionality for stream oriented processing.
 
 Where are these interfaces used? Answer: in many places. You can read from a
 file, a network connection, an HTTP reponse body, compressed input, you can
-even read endlessly from an data source, like a stream of zeros or random
-bytes. Image, JSON or XML decoders takes reader. You can write to files,
-network connections, hashing algorithms, standard output. You can read and
-write to memory buffers.
+read endlessly from an artificial data source, like a stream of zeros or random
+bytes. Image, JSON or XML decoders takes can work with readers. You can write
+to files, network connections, hashing algorithms or standard output. You can
+read and write to memory buffers.
 
-The use cases are endless and there is a chance, that a custom implementation
-of a reader and writer in your own project can simplify overall program design
-by adhering to a well known and universally used interface.
+The use cases are broad and there is a chance, that a custom implementation of
+a reader or writer in your own project will simplify overall program design by
+adhering to a well known interface.
 
 Prerequisites
 -------------
@@ -51,7 +51,10 @@ directory (s00, s01, ...) contains one exercise. There is one `main.go` file
 for each exercise. There might be auxiliary files in the exercise directory.
 
 Inside `main.go` you find code and comments. Among the comment lines are two
-special kinds of comments, marked *TODO* and *OUTPUT*.
+special kinds of comments, marked
+
+* *TODO* and
+* *OUTPUT*.
 
 Here is an real exercise to illustrate the format:
 
@@ -127,7 +130,7 @@ in idiomatic Go to implement the task. It is just a hint, there are often variou
 the same result. A variation in the implementation can be good occasion for a discussion.
 
 If not noted otherwise, all tasks should be implemented with basic error
-handling, that is: if any method used returns an error, you should check it.
+handling, that is: if any method returns an error, you should check it.
 Since we write small scripts, we can safely quit the program, if some error
 condition occurs.
 
@@ -148,7 +151,8 @@ $ cat hello.json | go run main.go
 ```
 
 If the result is the same you solved the exercise. If the output is off, try
-reviewing your code.
+reviewing your code, move to another task or lookup the
+[solution](https://github.com/miku/exploreio/tree/master#solutions).
 
 Solutions
 ---------
@@ -167,44 +171,44 @@ To the instructor
 If you are using this material for an own course, maybe you like a setup like this:
 
 * Have your laptop open as you show the exercises on a screen. Explain what is required and let people work on the TODOs.
-* Have a separate screen (tablet or other device) open with the solutions manual,
+* Have a separate screen (tablet or other device) open with the solutions manual (available as PDF),
 so you can jump in with a hint or solution.
 
 List of exercises and examples (x)
 ----------------------------------
 
-* S00: A file is a reader.
-* S01: Get bytes from a reader.
-* S02: Copying and standard streams.
-* S03: Stdin is a file, too.
-* S04: Decompression with gzip and a simple filter chain.
-* S05: An simple image converter.
-* S06: Besides marshaling, JSON (and XML) can also be decoded.
-* S07a: Package io contains many useful readers.
-* S07b: Read sections from a reader.
-* S08: Strings can be readers, io.ReadFull.
-* S09: Random reader and Base64 encoder.
-* S10: Prettify tabular data.
-* S11: Read a file, line by line.
-* S12: Read from multiple readers in turn.
-* S13: Write to more than one writer at once.
-* S14: Read into variables.
-* S15: Hello Buffer.
-* S16: Reading the output of a shell command into a buffer.
-* S17: An urgent request. (x)
-* S18a: Response bodies.
-* S18b: HTTP on the TCP level.
-* S19: An atomic file implementation. (x)
-* S20: The Reader interface.
-* S21: A reader that converts all unicode letter mapped to their upper case.
-* S22: A writer that discards everything that is written to it.
-* S23: An uppercase writer.
-* S24a: A counting reader.
-* S24b: A simple language guesser. (x)
-* S25: Generate data. (x)
-* S26: A slow reader. (x)
-* S27a: BlackBar censors given words in a stream. (x)
-* S27b: A reader that times out.
-* S28: Round robin multireader. (x)
-* S29: Round robin multireader, that can handle broken readers. (x)
-* S30: A small buffer.
+* [S00](https://github.com/miku/exploreio/tree/master/s00): A file is a reader.
+* [S01](https://github.com/miku/exploreio/tree/master/s01): Get bytes from a reader.
+* [S02](https://github.com/miku/exploreio/tree/master/s02): Copying and standard streams.
+* [S03](https://github.com/miku/exploreio/tree/master/s03): Stdin is a file, too.
+* [S04](https://github.com/miku/exploreio/tree/master/s04): Decompression with gzip and a simple filter chain.
+* [S05](https://github.com/miku/exploreio/tree/master/s05): An simple image converter.
+* [S06](https://github.com/miku/exploreio/tree/master/s06): Besides marshaling, JSON (and XML) can also be decoded.
+* [S07a](https://github.com/miku/exploreio/tree/master/s07a): Package io contains many useful readers.
+* [S07b](https://github.com/miku/exploreio/tree/master/s07b): Read sections from a reader.
+* [S08](https://github.com/miku/exploreio/tree/master/s08): Strings can be readers, io.ReadFull.
+* [S09](https://github.com/miku/exploreio/tree/master/s09): Random reader and Base64 encoder.
+* [S10](https://github.com/miku/exploreio/tree/master/s10): Prettify tabular data.
+* [S11](https://github.com/miku/exploreio/tree/master/s11): Read a file, line by line.
+* [S12](https://github.com/miku/exploreio/tree/master/s12): Read from multiple readers in turn.
+* [S13](https://github.com/miku/exploreio/tree/master/s13): Write to more than one writer at once.
+* [S14](https://github.com/miku/exploreio/tree/master/s14): Read into variables.
+* [S15](https://github.com/miku/exploreio/tree/master/s15): Hello Buffer.
+* [S16](https://github.com/miku/exploreio/tree/master/s16): Reading the output of a shell command into a buffer.
+* [S17](https://github.com/miku/exploreio/tree/master/s17): An urgent request. (x)
+* [S18a](https://github.com/miku/exploreio/tree/master/s18a): Response bodies.
+* [S18b](https://github.com/miku/exploreio/tree/master/s18b): HTTP on the TCP level.
+* [S19](https://github.com/miku/exploreio/tree/master/s19): An atomic file implementation. (x)
+* [S20](https://github.com/miku/exploreio/tree/master/s20): The Reader interface.
+* [S21](https://github.com/miku/exploreio/tree/master/s21): A reader that converts all unicode letter mapped to their upper case.
+* [S22](https://github.com/miku/exploreio/tree/master/s22): A writer that discards everything that is written to it.
+* [S23](https://github.com/miku/exploreio/tree/master/s23): An uppercase writer.
+* [S24a](https://github.com/miku/exploreio/tree/master/s24a): A counting reader.
+* [S24b](https://github.com/miku/exploreio/tree/master/s24b): A simple language guesser. (x)
+* [S25](https://github.com/miku/exploreio/tree/master/s25): Generate data. (x)
+* [S26](https://github.com/miku/exploreio/tree/master/s26): A slow reader. (x)
+* [S27a](https://github.com/miku/exploreio/tree/master/s27a): BlackBar censors given words in a stream. (x)
+* [S27b](https://github.com/miku/exploreio/tree/master/s27b): A reader that times out.
+* [S28](https://github.com/miku/exploreio/tree/master/s28): Round robin multireader. (x)
+* [S29](https://github.com/miku/exploreio/tree/master/s29): Round robin multireader, that can handle broken readers. (x)
+* [S30](https://github.com/miku/exploreio/tree/master/s30): A small buffer.
