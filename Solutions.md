@@ -929,3 +929,13 @@ We read the correct piece of the internal byte slice, but we do not shrink the
 byte slice after we read from it. We only move pointers. A solution would be to
 read from the byte slice and to alter the read index *and* to truncate the byte
 slice.
+
+----
+
+Snippets S40, S41, S42, S43, S44 are more examples of readers, but they don not contain any exercise.
+
+* S40: Draining a body (duplicates a reader, from the standard library).
+* S41: Can we read concurrently from a reader?
+* S42: Callbacks (do something of events, such as EOF).
+* S43: Like /dev/zero.
+* S44: A flaky reader that flips bytes.

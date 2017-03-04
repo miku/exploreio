@@ -3,6 +3,23 @@ Explore Golang IO
 
 Explore IO with Golang, workshop at [Golab](http://golab.io) 2017.
 
+The aim of this workshop is to get more familiar with two of the more important
+interfaces in the standard library,
+[io.Reader](https://golang.org/pkg/io/#Reader) and
+[io.Writer](https://golang.org/pkg/io/#Writer). These interfaces help to decompose
+functionality for stream oriented processing.
+
+Where are these interfaces used? Answer: in many places. You can read from a
+file, a network connection, an HTTP reponse body, compressed input, you can
+even read endlessly from an data source, like a stream of zeros or random
+bytes. Image, JSON or XML decoders takes reader. You can write to files,
+network connections, hashing algorithms, standard output. You can read and
+write to memory buffers.
+
+The use cases are endless and there is a chance, that a custom implementation
+of a reader and writer in your own project can simplify overall program design
+by adhering to a well known and universally used interface.
+
 Prerequisites
 -------------
 
@@ -153,7 +170,7 @@ If you are using this material for an own course, maybe you like a setup like th
 * Have a separate screen (tablet or other device) open with the solutions manual,
 so you can jump in with a hint or solution.
 
-List of examples (x) and exercises
+List of exercises and examples (x)
 ----------------------------------
 
 * S00: A file is a reader.
