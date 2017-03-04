@@ -20,6 +20,16 @@ The use cases are broad and there is a chance, that a custom implementation of
 a reader or writer in your own project will simplify overall program design by
 adhering to a well known interface.
 
+There are some
+[slides](https://github.com/miku/exploreio/blob/master/Slides.pdf), which
+introduce and motivate the topic.
+
+Duration
+--------
+
+The duration of the workshop at [Golab](http://golab.io) 2017 was about three
+hours in which we looked at about 70% of the material.
+
 Prerequisites
 -------------
 

@@ -22,13 +22,13 @@ b := make([]byte, 31)
 ```
 
 Any larger number will do as well. The length of the byte slice is the space
-that we allow the read method to fill. If this space is too small, we won't be
+that we allow the *Read* method to fill. If this space is too small, we won't be
 able to read the whole file.
 
 S01
 ---
 
-We can shorten these lines:
+We can shorten these lines
 
 ```go
 	// TODO: We don't need to loop manually, there is a helper
@@ -58,7 +58,7 @@ by using [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll):
 
 While [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) is useful, it is
 sometimes overused. Why is that? Often one wants to read something, process it
-and then write it somewhere. Imagine a HTTP request body, that we want to read,
+and then write it somewhere else. Imagine a HTTP request body, that we want to read,
 then preprocess and then maybe write to a file.
 [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) would consume the *whole
 data at once*. But for example in the case of a large file upload, there is
@@ -67,7 +67,7 @@ writing it to disk. There are other ways to solve this problem, which are both
 more efficient and elegant.
 
 However, [io.ReadAll](https://golang.org/pkg/io/ioutil/#ReadAll) is in the
-standard library and has perfectly fine use cases, too.
+standard library and has perfectly fine use cases.
 
 Noteworthy: EOF will not be reported by `ioutil.ReadAll` as the
 purpose of the method is to consume the reader as a whole:
@@ -108,7 +108,7 @@ Everywhere, where readers and writers need to connect,
 here we read from a file and write to one of the [standard
 streams](https://en.wikipedia.org/wiki/Standard_streams).
 
-We will see the helpful [io.Copy](https://golang.org/pkg/io/#Copy) over and
+We will see [io.Copy](https://golang.org/pkg/io/#Copy) over and
 over again.
 
 S03
@@ -166,9 +166,9 @@ There is a [Decode](https://golang.org/pkg/image/#Decode) method, that takes a
 reader and turn it into an [Image](https://golang.org/pkg/image/#Image).
 
 In turn, the concrete image subpackages implement an
-[Encode](https://golang.org/pkg/image/jpeg/#Encode) method, which take an
+[Encode](https://golang.org/pkg/image/jpeg/#Encode) method, which takes an
 [io.Writer](https://golang.org/pkg/io/#Writer) and an
-[Image](https://golang.org/pkg/image/#Image) as an argument.
+[Image](https://golang.org/pkg/image/#Image) (plus options) as arguments.
 
 ```go
 	// TODO: Decode the image and encode it to JPEG, write it
@@ -202,7 +202,7 @@ handling streams with
 ```
 
 The decoder takes an [io.Reader](https://golang.org/pkg/io/#Reader) and decodes
-the read bytes into the given values. This is useful, if your have a possible
+the read bytes into the given values. This is useful, if your have a possibly
 large number of values you want to decode, one at a time. The whole stream
 might not fit into memory at once, but the records, that make up the stream can
 be processed - one by one.
@@ -253,7 +253,7 @@ A [io.SectionReader](https://golang.org/pkg/io/#SectionReader) wraps seek and
 read operations. We skip 5 bytes, then read 9 bytes, which should yield the
 desired string.
 
-We also see that strings can be turned into readers, too.
+We also see that strings can be turned into readers as well.
 
 ```go
 	// TODO: Print the string "io.Reader" to stdout (4 lines).
@@ -270,8 +270,8 @@ header.
 S08
 ---
 
-Here, we use [io.ReadFull](https://golang.org/pkg/io/#ReadFull), which will reads the exactly
-the size of the buffer from the reader.
+Here, we use [io.ReadFull](https://golang.org/pkg/io/#ReadFull), which will
+read exactly the size of the buffer from the reader.
 
 > ReadFull reads exactly len(buf) bytes from r into buf. It returns the number
 of bytes copied and an error if fewer bytes were read. The error is EOF only if
@@ -384,8 +384,8 @@ variable-sized buffer of bytes with Read and Write methods. You can a read a
 [single byte](https://golang.org/pkg/bytes/#Buffer.ReadByte),
 [bytes](https://golang.org/pkg/bytes/#Buffer.ReadBytes),
 [runes](https://golang.org/pkg/bytes/#Buffer.ReadRune) or a
-[string](https://golang.org/pkg/bytes/#Buffer.ReadString) from it. Writing is
-analogue.
+[string](https://golang.org/pkg/bytes/#Buffer.ReadString) from it. Writing can
+be done with similar variety of methods.
 
 ```go
 	// TODO: Read one byte at a time from the buffer
@@ -429,9 +429,9 @@ output of a command directly with a
 ```
 
 Imagine, you want to wrap a legacy command line application with a nice Go API.
-By controlling the input, output and error stream of the application you have
-basic control over the application and you can start parsing and interpreting
-the command output into Go structures.
+By controlling the input, output and error streams of the application you have
+basic control over it and you can start parsing and interpreting the command
+output into Go structures.
 
 S17
 ---
@@ -439,7 +439,7 @@ S17
 A urgent request.
 
 Imagine you get a urgent request to analyze some image data. It's compressed.
-You need to find the distribution of the "red" values in an image and create
+You need to find the distribution of the "red" values in an image and create a
 report in form of a pretty table.
 
 This example is short, about 20 lines of code and uses readers and writers all over the place:
@@ -474,7 +474,7 @@ from and closed.
 With the familiar [io.Copy](https://golang.org/pkg/io/#Copy), we have a simple
 curl-like program.
 
-While this program would work without the line with the defer statement, for serious program
+While this program would work without the *defer* statement, for serious programs
 you should always close the response body.
 
 From the [http.Client](https://golang.org/pkg/net/http/#Client.Get) documentation:
@@ -537,7 +537,7 @@ func (r *Empty) Read(p []byte) (n int, err error) {
 }
 ```
 
-Even this is very limited in functionality, you can use this type anywhere,
+Even if this is very limited in functionality, you can use this type anywhere,
 where you can use an [io.Reader](https://golang.org/pkg/io/#Reader), e.g. in
 [io.Copy](https://golang.org/pkg/io/#Copy).
 
@@ -545,8 +545,9 @@ S21
 ---
 
 All types implementing [io.Reader](https://golang.org/pkg/io/#Reader) must
-implement a Read method with the exact signature. A typical pattern to implement custom readers
-is to embed another reader inside the type, like this:
+implement a Read method with the exact signature. A typical pattern fpr
+implementing custom readers is to keep another reader inside the type, like
+this:
 
 ```go
 // UpperReader is an uppercase filter.
@@ -555,9 +556,10 @@ type UpperReader struct {
 }
 ```
 
-Why embed another reader? If we want to uppercase bytes, we have to read the bytes from somewhere.
-By embedding the type we make it easy to drop in a filter like this into a processing pipeline.
-In the example, we can seamlessly connect the UpperReader with the standard input:
+Why keep another reader? If we want to uppercase bytes, we have to read the
+bytes from somewhere. By having the reader available in the type, we make it
+easy to drop in a filter like this into a processing pipeline. In the example,
+we can seamlessly connect the UpperReader with for example the standard input:
 
 ```go
 ...
@@ -651,10 +653,10 @@ S23
 
 Similar to a type, that reads bytes and converts them to upper case, we can
 implement a writer, that converts all Unicode letter to their upper case. We
-embed a writer, which is where we will write the upper case version to. The
+use another writer, which is where we will write the upper case version to. The
 implementation is simpler that the corresponding reader, we transform the bytes
 immediately before we write them to the underlying writer. We pass the return
-values of the Write directly back.
+values of the Write method directly back to the caller.
 
 ```go
 // TODO: Implement UpperWriter, a reader that converts
@@ -697,11 +699,11 @@ func (r *CountingReader) Count() uint64 {
 }
 ```
 
-The reader embeds another reader and keeps a count. In the Read method, we
+The reader uses another reader and keeps a count. In the Read method, we
 increment the count, in this case atomially with the help of the
 [atomic.AddUint64](https://golang.org/pkg/sync/atomic/#AddUint64).
 
-Finally, we define a public method count, that returns the number of bytes
+Finally, we define a public method *Count*, that returns the number of bytes
 read, that atomically reads of the value with
 [atomic.LoadUint64](https://golang.org/pkg/sync/atomic/#LoadUint64).
 
