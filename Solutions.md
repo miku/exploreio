@@ -703,13 +703,14 @@ The reader uses another reader and keeps a count. In the Read method, we
 increment the count, in this case atomially with the help of the
 [atomic.AddUint64](https://golang.org/pkg/sync/atomic/#AddUint64).
 
-Finally, we define a public method *Count*, that returns the number of bytes
-read, that atomically reads of the value with
-[atomic.LoadUint64](https://golang.org/pkg/sync/atomic/#LoadUint64).
+Finally, we define a public method *Count*, that atomically reads the value
+with [atomic.LoadUint64](https://golang.org/pkg/sync/atomic/#LoadUint64) and
+returns it.
 
-While the number of bytes read is often returned by IO methods, you can imagine
-more interesting metrics implemented in this way. For example you could keep
-track of metrics for the last minute, last five minutes and so on.
+While the number of bytes read is often returned by io-related methods (like
+io.Copy, io.WriteString, ...), you can imagine more interesting metrics
+implemented in this way. For example you could keep track of metrics for the
+last minute, last five minutes and so on.
 
 S24b
 ----
@@ -718,14 +719,14 @@ In this example, there is no TODO. It is just an example for a more elaborate
 statistic, that we measure, as data passes through this reader.
 
 The main idea is that - similar to a reader that just count the number of bytes
-read - that we keep the original data untouched and pass it on as is, while
-measuring the data and expose the results through additional methods.
+read - we keep the original data untouched and pass it on as is, while
+inspecting the data and exposing results through additional methods.
 
-Here, we guess the natural language of the input. We use a simple trigram-based
-language model. We could implement this with a simple method as well. The
-advantage of such a reader based method would be, that this approach would work
-even for large files, because we do not need to look at the data all at once.
-It is ok, if we collect the trigram frequencies chuck by chunk.
+Here, we guess the (natural) language of the input. We use a simple
+trigram-based language model. We could implement this with a simple method as
+well. The advantage of such a reader based approach would be scalability. It
+would work even for large files, because we do not need to look at the data all
+at once. It is ok, if we collect the trigram frequencies chuck by chunk.
 
 S25
 ---
@@ -734,7 +735,7 @@ In this example, we generate a stream of data. In fact, with a fixed amount of
 memory we generate endless amount of data. This can be useful in testing
 scenarios: The time series could be used to test a high frequency trading
 algorithm or to simulate an internet of things style sensor device emitting a
-value every microsecond.
+float value every microsecond.
 
 ```shell
 $ go run main.go
@@ -750,7 +751,7 @@ $ go run main.go
 ...
 ```
 
-The implementation uses an internal buffer to decouple data production and consumption.
+The implementation uses an internal buffer to decouple data producer and consumer.
 
 ```go
 // EndlessStream generates a stream of endless data. It uses an internal buffer to
@@ -786,14 +787,14 @@ himself transformed in his bed into a horrible vermin.  He lay on
 
 We use a [strings.Replacer](https://golang.org/pkg/strings/#Replacer) to black
 out words. Since we do not use any internal buffering, we have to take some
-care not to change the number of bytes when replacing words. This is done in
-the `makeReplacer` helper function. It is also the reason, that we use both █
-and X for blacking out the text.
+care not to change the reported number of bytes when replacing words. This is
+done in the `makeReplacer` helper function. It is also the reason, that we use
+both █ and X for blacking out the text.
 
 S27b
 ----
 
-This is a slightly longer implementation. As usual we embed another
+This is a slightly longer implementation. As usual we use another
 [io.Reader](https://golang.org/pkg/io/#Reader). We also add a field of type
 [time.Duration](https://golang.org/pkg/time/#Duration) to configure the
 timeout.
@@ -808,7 +809,7 @@ type TimeoutReader struct {
 ```
 
 An idiomatic way to implement timeouts can be found in the [Go
-Wiki](https://github.com/golang/go/wiki/Timeouts). The idea is to use buffered
+Wiki](https://github.com/golang/go/wiki/Timeouts). The idea is to use a buffered
 channel, start a goroutine with operation to be performed and then select
 between two channels: one for the timeout and one for the result of the
 operation.
@@ -847,8 +848,8 @@ If the read finishes in time, we return the number of bytes read and the
 error, which might not be nil. If Read takes too long, we return a custom
 `ErrTimeout`.
 
-The buffered channel allows the goroutine to send a result into. It does not
-block on send and therefore will be able to finish, even after a timeout.
+The buffered channel allows the goroutine to send a result into: It does not
+block on send and therefore will be able to finish, even if a timeout occured.
 
 S28
 ---
@@ -871,10 +872,10 @@ S29
 
 Example.
 
-Combine TimeoutReader and RoundRobinReader. We read round robin from a number
-of readers. To test the timeout, we will create a SlowAndFlaky reader, that is
-one, that is *sometimes* too slow. This helps us simulate brokenness - a
-component, that may work.
+Combine TimeoutReader and RoundRobinReader. We read in a round robin way from a
+number of readers. To test the timeout, we will create a *SlowAndFlaky* reader,
+that is one, that is *sometimes* too slow. This helps us simulate brokenness -
+a component, that may or may not work.
 
 We set a limit on the number of attempts that should be made to retry another
 reader. When we start creating readers in main, we create *good* string readers
@@ -886,15 +887,15 @@ retry limit and the reader will finally fail, saying: *max retries exceeded*.
 Short [asciicast](https://raw.githubusercontent.com/miku/exploreio/wip/casts/b5zvd60qmdsfehguqcpjzwdnk.gif).
 
 It is often necessary to plan for failure. Not all errors are equal. In this
-example, we see an example of a gradual error handling: we assert the system is
-ok as long as we can read from any reader. We even allow a number of errors.
-Only when we exceed a certain limit, we finally report an error.
+example, we see an example of gradual error handling: we assert the system is
+ok as long as we can read from *some* reader. We even allow a number of errors.
+Only when we exceed a certain limit, we finally report an error and fail.
 
 The first fallacy of distributed computing is: the network is reliable. You can
 imagine many scenarios, where you want gradual error handling: Maybe you don't
 want to give up on fetching an URL just after a first error. Maybe you have an
-abstraction over multiple data locations and you will not stop, if one is not
-responding.
+abstraction over multiple data locations and you do not want to stop, if one is
+not responding.
 
 The key is to identify errors, that can be recovered from locally and errors
 that should be passed on.
