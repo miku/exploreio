@@ -8,7 +8,8 @@
 //
 // Questions:
 //
-// (1) This implementation suffers from a small but serious flaw. Can you spot it?
+// (1) This implementation suffers from a small but serious flaw.
+//     Can you spot it?
 // (2) Can you implement a more efficient version?
 package main
 
