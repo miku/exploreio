@@ -1,9 +1,12 @@
 Exploring Readers and Writers
 =============================
 
-A tour though IO in Golang, workshop at [Golab](http://golab.io) 2017.
+A tour though IO in Golang.
 
-The aim of this workshop is to see two important interfaces of the standard
+This repository contains material from a workshop held at
+[Golab](http://golab.io) 2017.
+
+The aim of this workshop was to see two important interfaces of the standard
 library in action: [io.Reader](https://golang.org/pkg/io/#Reader) and
 [io.Writer](https://golang.org/pkg/io/#Writer). There are numerous
 implementations of these inferfaces.
