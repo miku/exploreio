@@ -1,4 +1,4 @@
-Solutions and comments of exercises.
+Exercise solutions and comments.
 
 S00
 ---
