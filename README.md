@@ -1,7 +1,7 @@
 Exploring Readers and Writers
 =============================
 
-A tour though IO in Golang.
+A tour through IO in Golang.
 
 This repository contains material from a workshop held at
 [Golab](http://golab.io) 2017.
