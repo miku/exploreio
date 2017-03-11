@@ -123,7 +123,7 @@ func main() {
 
 ```
 
-The first line gives a one-line summation of the theme of this exercise:
+The first line gives a one-line summary of the theme of this exercise:
 
 ```go
 // S06: Besides marshaling, JSON (and XML) can also be decoded.
