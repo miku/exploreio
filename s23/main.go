@@ -12,7 +12,7 @@ import (
 	"os"
 )
 
-// TODO: Implement UpperWriter, a reader that converts
+// TODO: Implement UpperWriter, a writer that converts
 //       all Unicode letter mapped to their upper case (6 lines).
 // ...
 // ...
