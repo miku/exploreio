@@ -19,7 +19,7 @@
 //     $ go run main.go
 //     HELLO Alice
 //
-//     2017/03/19 16:38:27 protocol initialization failed
+//     2017/03/19 16:57:08 protocol initialization failed: writing failed for some reason
 //     exit status 1
 
 package main
@@ -114,7 +114,7 @@ func main() {
 
 	// Finally check for any error and exit program if one occured.
 	if pw.err != nil {
-		log.Fatal("protocol initialization failed")
+		log.Fatalf("protocol initialization failed: %v", pw.err)
 	}
 
 	// Signal successful initialization.
