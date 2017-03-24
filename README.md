@@ -12,7 +12,7 @@ library in action: [io.Reader](https://golang.org/pkg/io/#Reader) and
 implementations of these inferfaces.
 
 Where are these interfaces used? In short: everywhere. You can read from a
-file, a network connection, an HTTP reponse body, compressed data, you can read
+file, a network connection, an HTTP response body, compressed data, you can read
 endlessly from an artificial source or a stream of zeros or random noise.
 Image, JSON, XML and other decoders work with readers. You can write to
 files, network connections, hashing algorithms or standard output. You can read
