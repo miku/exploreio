@@ -956,10 +956,13 @@ slice.
 
 ----
 
-Snippets S40, S41, S42, S43, S44 are more examples of readers, but they don not contain any exercise.
+Snippets S40 and later are more examples of readers, but they don't contain any exercise:
 
 * S40: Draining a body (duplicates a reader, from the standard library).
 * S41: Can we read concurrently from a reader?
 * S42: Callbacks (do something of events, such as EOF).
 * S43: Like /dev/zero.
 * S44: A flaky reader that flips bytes.
+* S45: A sticky error writer.
+* S46: Append a final newline to a bytestream.
+* S47: Two bufio.Reader, that can you can switch between.
