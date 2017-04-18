@@ -1,4 +1,4 @@
-// S47: Tow bufio.Reader, that can you can switch between.
+// S47: Two bufio.Reader, that can you can switch between.
 //
 // OUTPUT:
 //
