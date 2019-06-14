@@ -332,9 +332,9 @@ S12
 You can combine any number of readers with [io.MultiReader](https://golang.org/pkg/io/#MultiReader).
 
 ```go
-		// TODO: Read from these four readers
-		//       and write to standard output (4 lines).
-		rs := []io.Reader{
+    // TODO: Read from these four readers
+    //       and write to standard output (4 lines).
+	rs := []io.Reader{
 		strings.NewReader("Hello\n"),
 		strings.NewReader("Gopher\n"),
 		strings.NewReader("World\n"),
