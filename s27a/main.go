@@ -76,11 +76,11 @@ func (r *BlackBar) blackout(p []byte) []byte {
 	return []byte(r.replacer.Replace(string(p)))
 }
 
-// Read censors the underlying stream.
-func (r *BlackBar) Read(p []byte) (n int, err error) {
-	n, err = r.r.Read(p)
+// Read censors the underlying stream. XXX: Could read less than len(p).
+func (r *BlackBar) Read(p []byte) (int, error) {
+	n, err := r.r.Read(p)
 	copy(p, r.blackout(p))
-	return
+	return n, err
 }
 
 func main() {
