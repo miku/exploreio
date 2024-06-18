@@ -2,10 +2,10 @@
 //
 // OUTPUT:
 //
-//     $ go run main.go
-//     en en
-//     de de
-//     it it
+//	$ go run main.go
+//	en en
+//	de de
+//	it it
 package main
 
 import (
@@ -43,7 +43,7 @@ Fassung des Romans I Promessi Sposi von Alessandro Manzoni.
 // TrigramMap from the internet.
 // * it: http://stefantrost.de, http://www.sttmedia.com/syllablefrequency-italian
 // * en: http://norvig.com/mayzner.html
-// * de: http://www.mathe.tu-freiberg.de/~hebisch/cafe/kryptographie/trigramme.html
+// * de: http://web.archive.org/web/20190811131430/www.mathe.tu-freiberg.de/~hebisch/cafe/kryptographie/trigramme.html
 //
 // Early collection (1969): http://digitalcommons.butler.edu/wordways/vol2/iss3/17/
 var TrigramMap = map[string][]string{
